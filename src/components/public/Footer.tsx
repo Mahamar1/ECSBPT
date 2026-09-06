@@ -189,12 +189,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ShieldCheck className="w-4 h-4 text-amber-400" />
             <span>© {new Date().getFullYear()} {settings.company_name}. Tous droits réservés. Propriété exclusive.</span>
           </div>
-          <div className="flex items-center space-x-6">
-            <button onClick={() => onNavigate('/admin')} className="text-slate-400 hover:text-amber-400">
-              Accès Administration (/admin)
-            </button>
-          </div>
         </div>
+
 
       </div>
     </footer>

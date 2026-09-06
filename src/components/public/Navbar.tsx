@@ -68,17 +68,9 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
               <span>{settings.email}</span>
             </span>
           </div>
-          <div className="flex items-center space-x-4">
-            <button 
-              onClick={() => onNavigate('/admin')} 
-              className="flex items-center space-x-1 bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1 rounded transition text-xs border border-slate-700"
-            >
-              <Shield className="w-3.5 h-3.5 text-amber-400" />
-              <span>Espace Admin</span>
-            </button>
-          </div>
         </div>
       </div>
+
 
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
@@ -136,12 +128,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
 
         {/* Mobile Hamburger Button */}
         <div className="md:hidden flex items-center space-x-2">
-          <button 
-            onClick={() => onNavigate('/admin')}
-            className="text-xs bg-slate-800 text-amber-400 px-2.5 py-1.5 rounded-lg border border-slate-700 font-medium"
-          >
-            Admin
-          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-slate-300 hover:text-white p-2 rounded-lg bg-slate-800 focus:outline-none"
@@ -149,6 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
       </div>
 
       {/* Mobile Drawer */}
