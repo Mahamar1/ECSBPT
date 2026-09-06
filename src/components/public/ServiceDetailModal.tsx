@@ -17,7 +17,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Grands travaux de structures et bâtiments résidentiels & commerciaux.",
     fullDesc: "ECS BTP prend en charge la totalité des travaux de construction et gros œuvre : fondations profondes, ossatures en béton armé, élévation des murs et structures complexes. Nous appliquons les normes internationales Eurocodes et garantissons une exécution rigoureuse supervisée par des ingénieurs certifiés au Sénégal.",
     icon: Building2,
-    image: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/construction.jpg",
     advantages: [
       "Garantie décennale & contrôle qualité rigoureux",
       "Équipe d'ingénieurs et techniciens certifiés",
@@ -36,7 +36,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Assainissement, terrassement, VRD et ouvrages d'art à Dakar.",
     fullDesc: "Nos équipes d'ingénierie travaux exécutent vos projets d'aménagement urbain, de VRD (Voiries et Réseaux Divers), de terrassement de grande masse, d'assainissement d'eau pluviale et usée, ainsi que la réalisation d'ouvrages d'art complexes à Dakar et dans toutes les régions du Sénégal.",
     icon: Hammer,
-    image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/genie_civil.jpg",
     advantages: [
       "Parc d'engins modernes et performants (Pelles, Buldozers, Goudronneuses)",
       "Études de sol géotechniques poussées",
@@ -55,7 +55,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Développement de résidences neuves de haut standing sous Titre Foncier.",
     fullDesc: "En tant que promoteur immobilier référence, ECS BTP conçoit et réalise des programmes immobiliers neufs d'exception (immeubles R+5 à R+11, résidences fermées, villas contemporaines). Tous nos programmes sont développés exclusivement sur des terrains bénéficiant d'un Titre Foncier direct et inattaquable.",
     icon: Shield,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/promotion.jpg",
     advantages: [
       "Titres Fonciers individuels certifiés",
       "Architecture contemporaine & finitions de luxe",
@@ -74,7 +74,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Commercialisation d'appartements, villas, terrains et immeubles.",
     fullDesc: "Notre pôle transaction immobilière vous accompagne dans l'achat et la vente de biens immobiliers de standing à Dakar. Nous sélectionnons pour nos acquéreurs des opportunités certifiées (Appartements F3/F4/F5, Villas de luxe, Immeubles de rapport, Terrains avec Titre Foncier).",
     icon: Key,
-    image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/vente.jpg",
     advantages: [
       "Portefeuille de biens vérifiés juridiquement",
       "Accompagnement notarié complet de A à Z",
@@ -93,7 +93,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Gestion locative clé en main et sélection des candidats locataires.",
     fullDesc: "Maximisez les revenus de vos biens immobiliers en toute sérénité. ECS BTP gère l'intégralité de vos biens locatifs : sélection rigoureuse des locataires, rédaction des baux, quittancement, recouvrement des loyers, maintenance technique et suivi des réparations.",
     icon: Home,
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/location.jpg",
     advantages: [
       "Sélection des candidats sur dossier solvable",
       "Reversement régulier des loyers chaque mois",
@@ -112,7 +112,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Réhabilitation complète, réaménagement intérieur & façades.",
     fullDesc: "Transformez vos bâtiments et appartements existants. ECS BTP réalise la réhabilitation lourde et le réaménagement complet de vos espaces : reprise sous-œuvre, ravalement de façade thermo-acoustique, rénovation électrique et plomberie, aménagement d'intérieurs de standing.",
     icon: Wrench,
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/renovation.jpg",
     advantages: [
       "Reprise de structures & renforcement béton",
       "Modernisation esthétique et fonctionnelle",
@@ -131,7 +131,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
     desc: "Syndic de copropriété et valorisation du patrimoine immobilier.",
     fullDesc: "Conservez la valeur et la sécurité de vos immeubles et copropriétés. Nous assurons la gestion administrative, financière et technique des parties communes (ascenseurs, groupes électrogènes, gardiennage, entretien piscine, étanchéité et sécurité incendie).",
     icon: ShieldCheck,
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/gestion.jpg",
     advantages: [
       "Transparence comptable & rapports trimestriels",
       "Maintenance préventive des équipements clés",
@@ -147,6 +147,7 @@ export const SERVICE_DETAILS_MAP: Record<string, ServiceDetail> = {
   }
 };
 
+
 interface ServiceDetailModalProps {
   serviceTitle: string | null;
   onClose: () => void;
@@ -161,7 +162,8 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceT
     desc: "Service professionnel proposé par ECS BTP.",
     fullDesc: "ECS BTP intervient pour tous vos travaux de construction, génie civil et promotion immobilière au Sénégal avec une exigence de qualité irréprochable.",
     icon: Building2,
-    image: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80",
+    image: "/services/construction.jpg",
+
     advantages: [
       "Savoir-faire reconnu et ingénieurs qualifiés",
       "Garantie décennale et suivi de chantier",
