@@ -66,7 +66,7 @@ export function App() {
 
   // Route matching logic
   const renderContent = () => {
-    if (currentPath.startsWith('/admin')) {
+    if (currentPath.startsWith('/admin') || currentPath.startsWith('/@dmin-ecsbtp') || currentPath.startsWith('/admin-ecsbtp')) {
       if (!isAuthenticated) {
         return <AdminAuth onLoginSuccess={handleLoginSuccess} onNavigatePublic={handleNavigate} />;
       }
@@ -112,7 +112,7 @@ export function App() {
     return <HomePage onNavigate={handleNavigate} />;
   };
 
-  const isAdminRoute = currentPath.startsWith('/admin');
+  const isAdminRoute = currentPath.startsWith('/admin') || currentPath.startsWith('/@dmin-ecsbtp') || currentPath.startsWith('/admin-ecsbtp');
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col justify-between">
