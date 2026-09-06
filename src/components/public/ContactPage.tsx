@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { store } from '../../services/store';
 import { CompanySettings } from '../../types';
 import { Phone, Mail, MapPin, MessageSquare, Send, CheckCircle, Clock } from 'lucide-react';
+import { sanitizeInput } from '../../utils/security';
 
 export const ContactPage: React.FC = () => {
   const [settings, setSettings] = useState<CompanySettings>(store.getSettings());
@@ -22,11 +23,17 @@ export const ContactPage: React.FC = () => {
     e.preventDefault();
     if (!name || !phone || !message) return;
 
+    const cleanName = sanitizeInput(name);
+    const cleanPhone = sanitizeInput(phone);
+    const cleanEmail = sanitizeInput(email);
+    const cleanSubject = sanitizeInput(subject);
+    const cleanMessage = sanitizeInput(message);
+
     store.addInquiry({
-      client_name: name,
-      phone,
-      email,
-      message: subject ? `[${subject}] ${message}` : message,
+      client_name: cleanName,
+      phone: cleanPhone,
+      email: cleanEmail,
+      message: cleanSubject ? `[${cleanSubject}] ${cleanMessage}` : cleanMessage,
       inquiry_type: 'Page Contact'
     });
 

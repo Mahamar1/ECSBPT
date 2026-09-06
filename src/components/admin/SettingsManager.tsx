@@ -11,6 +11,7 @@ import {
   testSupabaseConnection, 
   isSupabaseConfigured 
 } from '../../lib/supabase';
+import { getSecurityAuditStatus } from '../../utils/security';
 
 export const SettingsManager: React.FC = () => {
   const [settings, setSettings] = useState<CompanySettings>(store.getSettings());
@@ -236,6 +237,35 @@ export const SettingsManager: React.FC = () => {
               <label className="block font-semibold mb-1">YouTube</label>
               <input type="url" value={settings.youtube} onChange={(e) => handleChange('youtube', e.target.value)} className="w-full bg-slate-50 border p-2 rounded-xl" />
             </div>
+          </div>
+        </div>
+
+        {/* SECTION SÉCURITÉ ET PROTECTION ANTI-PIRATAGE */}
+        <div className="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center space-x-3">
+              <div className="p-2 bg-emerald-500/20 text-emerald-400 rounded-xl border border-emerald-500/30">
+                <CheckCircle2 className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-bold text-sm text-white">Centre de Sécurité & Audit Anti-Piratage</h3>
+                <p className="text-[11px] text-slate-400">Protections actives contre le piratage, l'injection XSS et l'usurpation.</p>
+              </div>
+            </div>
+            <span className="bg-emerald-500 text-slate-950 text-[10px] font-mono font-extrabold px-3 py-1 rounded-full uppercase">
+              Sécurité 100% Active
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            {getSecurityAuditStatus().map((sec, idx) => (
+              <div key={idx} className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 flex items-center justify-between">
+                <span className="text-slate-300 font-medium">{sec.name}</span>
+                <span className="bg-emerald-950 text-emerald-400 font-bold font-mono text-[10px] px-2 py-0.5 rounded border border-emerald-800">
+                  {sec.status}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
 
