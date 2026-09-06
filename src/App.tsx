@@ -13,15 +13,18 @@ import { AboutPage } from './components/public/AboutPage';
 import { ContactPage } from './components/public/ContactPage';
 import { AdminAuth } from './components/admin/AdminAuth';
 import { AdminLayout } from './components/admin/AdminLayout';
+import { LoadingScreen } from './components/common/LoadingScreen';
 import { UserRole } from './types';
 
 export function App() {
   const [currentPath, setCurrentPath] = useState<string>(window.location.pathname || '/');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   
   // Admin Session State
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem('sbi_admin_auth') === 'true';
   });
+
   const [userRole, setUserRole] = useState<UserRole>(() => {
     return (localStorage.getItem('sbi_admin_role') as UserRole) || 'SUPER_ADMIN';
   });
@@ -112,6 +115,8 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased flex flex-col justify-between">
+      {isLoading && <LoadingScreen onFinish={() => setIsLoading(false)} />}
+
       {!isAdminRoute && <Navbar currentPath={currentPath} onNavigate={handleNavigate} />}
       
       <main className="flex-grow">
@@ -121,6 +126,7 @@ export function App() {
       {!isAdminRoute && <Footer onNavigate={handleNavigate} />}
     </div>
   );
+
 }
 
 export default App;
