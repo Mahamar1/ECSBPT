@@ -59,15 +59,16 @@ export const AdminAuth: React.FC<AdminAuthProps> = ({ onLoginSuccess, onNavigate
       <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6 text-white animate-fade-in relative overflow-hidden">
         
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white mx-auto shadow-lg shadow-amber-500/20">
-            <Building2 className="w-8 h-8" />
+          <div className="bg-white p-2.5 rounded-2xl shadow-xl border border-amber-500/30 inline-block mx-auto mb-1">
+            <img src="/logo.png" alt="ECS BTP Logo" className="h-16 w-auto object-contain" />
           </div>
-          <h1 className="text-2xl font-black tracking-tight">Sama BTP Immo</h1>
+          <h1 className="text-2xl font-black tracking-tight text-white">ECS BTP</h1>
           <p className="text-xs text-amber-400 font-mono font-semibold uppercase tracking-widest flex items-center justify-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5" />
             Espace Administration & Supabase Auth
           </p>
         </div>
+
 
         {isSupabaseConfigured() && (
           <div className="bg-emerald-950/60 border border-emerald-800/80 p-3 rounded-2xl text-[11px] text-emerald-300 flex items-center gap-2">

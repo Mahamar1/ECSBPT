@@ -58,18 +58,19 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
       <div>
         <div className="p-5 border-b border-slate-800 flex items-center justify-between">
           <div className="flex items-center space-x-3 cursor-pointer" onClick={() => onSelectTab('dashboard')}>
-            <div className="w-9 h-9 rounded-xl bg-amber-500 flex items-center justify-center text-slate-950 font-bold shadow-md">
-              <Building2 className="w-5 h-5" />
+            <div className="bg-white p-1 rounded-xl shadow-md flex items-center justify-center">
+              <img src="/logo.png" alt="ECS BTP Logo" className="h-8 w-auto object-contain" />
             </div>
             <div>
               <span className="font-extrabold text-white text-sm tracking-tight block">
-                Sama Admin
+                ECS BTP Admin
               </span>
               <span className="text-[10px] text-amber-400 font-mono font-semibold uppercase">
                 {userRole}
               </span>
             </div>
           </div>
+
         </div>
 
         {/* Navigation Items */}

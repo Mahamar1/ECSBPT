@@ -32,13 +32,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3 cursor-pointer" onClick={() => onNavigate('/')}>
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white font-bold">
-                <Building2 className="w-6 h-6" />
+              <div className="bg-white p-1.5 rounded-xl shadow-md flex items-center justify-center">
+                <img src="/logo.png" alt="ECS BTP Logo" className="h-10 w-auto object-contain" />
               </div>
               <span className="text-xl font-black text-white tracking-tight">
-                SAMA <span className="text-amber-400">BTP</span> IMMO
+                ECS <span className="text-amber-400">BTP</span>
               </span>
             </div>
+
             <p className="text-sm text-slate-400 leading-relaxed">
               {settings.description}
             </p>

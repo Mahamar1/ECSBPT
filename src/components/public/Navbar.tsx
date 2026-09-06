@@ -86,18 +86,19 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
           onClick={() => onNavigate('/')} 
           className="flex items-center space-x-3 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-500 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
-            <Building2 className="w-6 h-6" />
+          <div className="bg-white p-1.5 rounded-xl shadow-md group-hover:scale-105 transition-transform flex items-center justify-center">
+            <img src="/logo.png" alt="ECS BTP Logo" className="h-10 w-auto object-contain" />
           </div>
           <div>
-            <span className="text-xl font-extrabold text-white tracking-tight flex items-center gap-1">
-              SAMA <span className="text-amber-400">BTP</span> IMMO
+            <span className="text-xl font-black text-white tracking-tight flex items-center gap-1">
+              ECS <span className="text-amber-400">BTP</span>
             </span>
             <span className="block text-[10px] text-slate-400 uppercase tracking-widest font-semibold">
               Sénégal • Dakar
             </span>
           </div>
         </div>
+
 
         {/* Desktop Links */}
         <nav className="hidden md:flex items-center space-x-1">

@@ -8,22 +8,23 @@ import {
 // ==========================================
 
 export const INITIAL_SETTINGS: CompanySettings = {
-  company_name: "Sama BTP Immo",
-  logo: "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=300&q=80",
+  company_name: "ECS BTP",
+  logo: "/logo.png",
   tagline: "Construire aujourd'hui, investir pour demain.",
   phone: "+221 33 869 10 10",
   whatsapp: "+221 77 450 20 20",
-  email: "contact@samabtpimmo.sn",
-  address: "Route des Almadies, Immeuble Sama Tower, 4ème étage, Dakar, Sénégal",
-  website: "https://samabtpimmo.sn",
-  facebook: "https://facebook.com/samabtpimmo",
-  instagram: "https://instagram.com/samabtpimmo",
-  linkedin: "https://linkedin.com/company/samabtpimmo",
-  youtube: "https://youtube.com/c/samabtpimmo",
-  description: "Sama BTP Immo est une entreprise référence au Sénégal spécialisée dans les grands travaux de construction BTP, la promotion immobilière haut de gamme et la vente/location de biens d'exception à Dakar et ses environs.",
+  email: "contact@ecs-btp.sn",
+  address: "Route des Almadies, Immeuble ECS Tower, Dakar, Sénégal",
+  website: "https://ecs-btp.sn",
+  facebook: "https://facebook.com/ecsbtp",
+  instagram: "https://instagram.com/ecsbtp",
+  linkedin: "https://linkedin.com/company/ecsbtp",
+  youtube: "https://youtube.com/c/ecsbtp",
+  description: "ECS BTP est une entreprise référence au Sénégal spécialisée dans les grands travaux de construction BTP, la promotion immobilière haut de gamme et la vente/location de biens d'exception à Dakar et ses environs.",
   hours: "Lun - Ven: 08h00 - 18h30 | Sam: 09h00 - 13h00",
   gps: "14.7452, -17.5186"
 };
+
 
 export const INITIAL_PROPERTIES: Property[] = [
   {
