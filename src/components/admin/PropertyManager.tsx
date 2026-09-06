@@ -207,7 +207,8 @@ export const PropertyManager: React.FC<PropertyManagerProps> = ({ onSelectTab, o
 // MODAL FORM COMPONENT
 export const PropertyFormModal: React.FC<{ property: Property | null; onClose: () => void }> = ({ property, onClose }) => {
   const [title, setTitle] = useState(property?.title || '');
-  const [reference, setReference] = useState(property?.reference || `SBI-${Math.floor(100 + Math.random() * 900)}`);
+  const [reference, setReference] = useState(property?.reference || `ECS-${Math.floor(100 + Math.random() * 900)}`);
+
   const [type, setType] = useState<PropertyType>(property?.type || 'Appartement');
   const [transactionType, setTransactionType] = useState<TransactionType>(property?.transaction_type || 'Vente');
   const [price, setPrice] = useState<number>(property?.price || 50000000);

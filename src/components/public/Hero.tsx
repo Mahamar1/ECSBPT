@@ -40,8 +40,9 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
             </h1>
 
             <p className="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
-              Sama BTP Immo est votre partenaire de confiance à Dakar et au Sénégal. De la conception architecturale aux grands travaux de construction BTP, en passant par la vente et la location de biens d'exception sous Titre Foncier.
+              ECS BTP est votre partenaire de confiance à Dakar et au Sénégal. De la conception architecturale aux grands travaux de construction BTP, en passant par la vente et la location de biens d'exception sous Titre Foncier.
             </p>
+
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4 pt-2">

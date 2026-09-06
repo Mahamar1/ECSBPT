@@ -95,8 +95,9 @@ export const InquiryInbox: React.FC = () => {
                 </a>
 
                 <a
-                  href={formatWhatsAppUrl(inq.phone, `Bonjour ${inq.client_name}, je réponds à votre demande concernant Sama BTP Immo.`)}
+                  href={formatWhatsAppUrl(inq.phone, `Bonjour ${inq.client_name}, je réponds à votre demande concernant ECS BTP.`)}
                   target="_blank"
+
                   rel="noreferrer"
                   className="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold px-3 py-1.5 rounded-lg flex items-center space-x-1"
                 >

@@ -43,7 +43,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
 
   const formatWhatsAppUrl = () => {
     const cleanNum = settings.whatsapp.replace(/[^0-9]/g, '');
-    return `https://wa.me/${cleanNum}?text=${encodeURIComponent("Bonjour, je souhaite contacter Sama BTP Immo.")}`;
+    return `https://wa.me/${cleanNum}?text=${encodeURIComponent("Bonjour, je souhaite contacter ECS BTP.")}`;
+
   };
 
   return (

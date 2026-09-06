@@ -45,8 +45,9 @@ export const DashboardOverview: React.FC<DashboardOverviewProps> = ({ onSelectTa
             Panneau de Contrôle Entreprise
           </span>
           <h1 className="text-2xl sm:text-3xl font-extrabold mt-2">
-            Tableau de Bord - Sama BTP Immo
+            Tableau de Bord - ECS BTP
           </h1>
+
           <p className="text-slate-400 text-xs sm:text-sm mt-1">
             Gérez vos biens, vos chantiers BTP et vos publications en temps réel.
           </p>

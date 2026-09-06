@@ -264,12 +264,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({ slug, on
             
             <div className="flex items-center space-x-3 border-b border-slate-800 pb-4">
               <div className="w-12 h-12 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold">
-                SBI
+                ECS
               </div>
               <div>
-                <h4 className="font-bold text-sm text-white">Sama BTP Immo</h4>
+                <h4 className="font-bold text-sm text-white">ECS BTP</h4>
                 <p className="text-xs text-slate-400">Agence & Promotion Dakar</p>
               </div>
+
             </div>
 
             {/* ACTION BUTTONS */}

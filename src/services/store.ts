@@ -170,8 +170,8 @@ export const INITIAL_PROPERTIES: Property[] = [
 export const INITIAL_PROJECTS: BTPProject[] = [
   {
     id: "proj-1",
-    title: "Construction Tour Résidentielle R+11 'Sama Horizon' - Almadies",
-    slug: "tour-residentielle-r11-sama-horizon-almadies",
+    title: "Construction Tour Résidentielle R+11 'ECS Horizon' - Almadies",
+    slug: "tour-residentielle-r11-ecs-horizon-almadies",
     description: "Projet de construction d'une tour d'habitation de grand standing R+11 comprenant 22 appartements de luxe, un penthouse duplex avec piscine à débordement sur le toit, parking sous-sol sur 2 niveaux et espace bien-être.",
     location: "Almadies, Dakar",
     project_type: "R+11",
@@ -282,7 +282,7 @@ export const INITIAL_PUBLICATIONS: Publication[] = [
       <p>La capitale sénégalaise concentre plus de 80% des activités économiques du pays. La forte présence d'entreprises internationales, d'ONG et d'institutions régionales génère une demande continue pour des logements de standing meublés ou non meublés.</p>
 
       <h3>2. Des normes de construction BTP modernisées</h3>
-      <p>Les programmes neufs réalisés par des professionnels certifiés comme <strong>Sama BTP Immo</strong> respectent les normes eurocodes et parasismiques, offrant des garanties décennales et une isolation thermique essentielle sous le climat ouest-africain.</p>
+      <p>Les programmes neufs réalisés par des professionnels certifiés comme <strong>ECS BTP</strong> respectent les normes eurocodes et parasismiques, offrant des garanties décennales et une isolation thermique essentielle sous le climat ouest-africain.</p>
 
       <blockquote>"Investir dans un bien immobilier sous Titre Foncier à Dakar reste la valeur refuge par excellence."</blockquote>
 
@@ -297,19 +297,19 @@ export const INITIAL_PUBLICATIONS: Publication[] = [
     status: "Publié",
     published_at: "2026-08-10T09:00:00Z",
     author: "Ing. Mouhamed Niang",
-    seo_title: "Investissement Immobilier Dakar 2026 | Conseils & Rendement - Sama BTP",
+    seo_title: "Investissement Immobilier Dakar 2026 | Conseils & Rendement - ECS BTP",
     seo_description: "Guide complet sur l'achat et l'investissement immobilier neuf à Dakar, Almadies, Mermoz. Rendement locatif et garanties juridiques au Sénégal.",
     created_at: "2026-08-10T09:00:00Z"
   },
   {
     id: "pub-2",
-    title: "Lancement du Chantier de la Tour 'Sama Horizon' aux Almadies",
-    slug: "lancement-du-chantier-de-la-tour-sama-horizon-aux-almadies",
+    title: "Lancement du Chantier de la Tour 'ECS Horizon' aux Almadies",
+    slug: "lancement-du-chantier-de-la-tour-ecs-horizon-aux-almadies",
     category: "Actualités",
-    excerpt: "Sama BTP Immo annonce le démarrage officiel des fondations profondes du projet emblématique R+11 en bordure de mer.",
+    excerpt: "ECS BTP annonce le démarrage officiel des fondations profondes du projet emblématique R+11 en bordure de mer.",
     content: `
       <h2>Un nouveau repère architectural à Dakar</h2>
-      <p>Le groupe Sama BTP Immo a officiellement posé la première pierre de la résidence <strong>Sama Horizon</strong> aux Almadies. Ce projet d'envergure démontre notre savoir-faire en matière d'ingénierie lourde et de gros œuvre.</p>
+      <p>Le groupe ECS BTP a officiellement posé la première pierre de la résidence <strong>ECS Horizon</strong> aux Almadies. Ce projet d'envergure démontre notre savoir-faire en matière d'ingénierie lourde et de gros œuvre.</p>
       
       <p>Équipé de technologies d'efficacité énergétique et de systèmes domotiques avancés, cet immeuble de 12 niveaux proposera une expérience résidentielle inégalée à Dakar.</p>
     `,
@@ -317,8 +317,8 @@ export const INITIAL_PUBLICATIONS: Publication[] = [
     status: "Publié",
     published_at: "2026-08-25T11:30:00Z",
     author: "Direction Communication",
-    seo_title: "Chantier Tour Sama Horizon Almadies Dakar | Sama BTP Immo",
-    seo_description: "Démarrage des travaux du projet d'immeuble R+11 Sama Horizon aux Almadies Dakar.",
+    seo_title: "Chantier Tour ECS Horizon Almadies Dakar | ECS BTP",
+    seo_description: "Démarrage des travaux du projet d'immeuble R+11 ECS Horizon aux Almadies Dakar.",
     created_at: "2026-08-25T11:30:00Z"
   }
 ];
@@ -343,7 +343,8 @@ export const INITIAL_CLIENTS: Client[] = [
     email: "a.sall@gmail.com",
     address: "Sacré Cœur 3, Dakar",
     client_type: "Investisseur",
-    notes: "Intéressée par achat en VEFA sur la tour Sama Horizon.",
+    notes: "Intéressée par achat en VEFA sur la tour ECS Horizon.",
+
     created_at: "2026-08-22T14:15:00Z"
   }
 ];
@@ -430,7 +431,8 @@ export const INITIAL_SERVICES: Service[] = [
 export const INITIAL_DOCUMENTS: DocumentItem[] = [
   {
     id: "doc-1",
-    name: "Plaquette_Corporative_Sama_BTP_Immo_2026.pdf",
+    name: "Plaquette_Corporative_ECS_BTP_2026.pdf",
+
     file_url: "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
     category: "Présentation",
     created_at: "2026-01-15T08:00:00Z"
@@ -649,7 +651,8 @@ class AppStore {
         cover_image: pub.cover_image || 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80',
         status: pub.status || 'Publié',
         published_at: new Date().toISOString(),
-        author: pub.author || 'Équipe Sama BTP Immo',
+        author: pub.author || 'Équipe ECS BTP',
+
         seo_title: pub.seo_title || pub.title,
         seo_description: pub.seo_description || pub.excerpt,
         created_at: new Date().toISOString()

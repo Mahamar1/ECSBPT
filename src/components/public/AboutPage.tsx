@@ -10,8 +10,9 @@ export const AboutPage: React.FC<{ onNavigate: (path: string) => void }> = ({ on
           À Propos de l'Entreprise
         </span>
         <h1 className="text-3xl sm:text-5xl font-black">
-          Sama BTP Immo
+          ECS BTP
         </h1>
+
         <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
           Leader engagé dans la modernisation du paysage urbain dakarois et du Sénégal à travers des ouvrages de construction durables et des développements immobiliers certifiés.
         </p>

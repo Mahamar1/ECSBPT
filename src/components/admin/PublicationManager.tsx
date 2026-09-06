@@ -116,7 +116,8 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
   const [excerpt, setExcerpt] = useState(publication?.excerpt || '');
   const [content, setContent] = useState(publication?.content || '');
   const [coverImage, setCoverImage] = useState(publication?.cover_image || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');
-  const [author, setAuthor] = useState(publication?.author || 'Équipe Sama BTP Immo');
+  const [author, setAuthor] = useState(publication?.author || 'Équipe ECS BTP');
+
   const [status, setStatus] = useState<PublicationStatus>(publication?.status || 'Publié');
   const [seoTitle, setSeoTitle] = useState(publication?.seo_title || '');
   const [seoDescription, setSeoDescription] = useState(publication?.seo_description || '');

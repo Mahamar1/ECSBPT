@@ -1,5 +1,6 @@
 {
-  "name": "sama-btp-immo",
+  "name": "ecs-btp",
+
   "private": true,
   "version": "1.0.0",
   "type": "module",

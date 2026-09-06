@@ -54,8 +54,9 @@ export const ContactPage: React.FC = () => {
           Nous Contacter
         </span>
         <h1 className="text-3xl sm:text-4xl font-extrabold mt-3">
-          Échangez avec l'Équipe Sama BTP Immo
+          Échangez avec l'Équipe ECS BTP
         </h1>
+
         <p className="text-slate-300 text-sm mt-2 max-w-2xl">
           Visite de bien, devis de construction BTP, opportunités d'investissement à Dakar.
         </p>

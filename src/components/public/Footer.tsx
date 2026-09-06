@@ -21,7 +21,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   const formatWhatsAppUrl = () => {
     const cleanNum = settings.whatsapp.replace(/[^0-9]/g, '');
-    return `https://wa.me/${cleanNum}?text=${encodeURIComponent("Bonjour Sama BTP Immo, je souhaiterais obtenir des informations.")}`;
+    return `https://wa.me/${cleanNum}?text=${encodeURIComponent("Bonjour ECS BTP, je souhaiterais obtenir des informations.")}`;
+
   };
 
   return (
