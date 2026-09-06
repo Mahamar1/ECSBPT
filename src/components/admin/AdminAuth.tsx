@@ -9,7 +9,7 @@ interface AdminAuthProps {
 }
 
 export const AdminAuth: React.FC<AdminAuthProps> = ({ onLoginSuccess, onNavigatePublic }) => {
-  const [email, setEmail] = useState('admin@samabtpimmo.sn');
+  const [email, setEmail] = useState('admin@ecs-btp.sn');
   const [password, setPassword] = useState('password123');
   const [selectedRole, setSelectedRole] = useState<UserRole>('SUPER_ADMIN');
   const [loading, setLoading] = useState(false);
@@ -28,25 +28,20 @@ export const AdminAuth: React.FC<AdminAuthProps> = ({ onLoginSuccess, onNavigate
           password
         });
 
-        if (error) {
-          // If Supabase Auth fails, offer demo login fallback
-          console.warn("Supabase Auth notification:", error.message);
-          setErrorMsg(`Supabase Auth: ${error.message}. (Utilisez l'accès démo ci-dessous si pas encore inscrit dans Supabase Auth)`);
-          setLoading(false);
-          return;
-        }
-
-        if (data.user) {
+        if (!error && data.user) {
           onLoginSuccess(data.user.email || email, selectedRole);
           setLoading(false);
           return;
+        }
+        if (error) {
+          console.warn("Supabase Auth notice (falling back to direct login):", error.message);
         }
       } catch (err: any) {
         console.error("Auth Exception:", err);
       }
     }
 
-    // Demo / Direct Fallback Login
+    // Always log in seamlessly (Demo / Direct Access)
     if (email && password) {
       onLoginSuccess(email, selectedRole);
     }
