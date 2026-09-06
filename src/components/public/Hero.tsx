@@ -11,14 +11,13 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
       {/* Background Image Overlay with Gradient */}
       <div className="absolute inset-0 z-0">
         <img 
-          src="/services/construction.jpg" 
+          src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=2000&q=80" 
           alt="BTP Construction Senegal" 
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full object-cover opacity-25"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/60" />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
       </div>
-
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -93,7 +92,7 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
               <div className="space-y-4">
                 <div className="relative rounded-xl overflow-hidden group">
                   <img 
-                    src="/services/promotion.jpg" 
+                    src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" 
                     alt="Appartement Almadies" 
                     className="w-full h-48 object-cover group-hover:scale-105 transition duration-500"
                   />
@@ -101,7 +100,6 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
                     Almadies • Dakar
                   </div>
                 </div>
-
 
                 <div>
                   <div className="flex justify-between items-start mb-1">
