@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Hero } from './Hero';
+import { ServiceDetailModal } from './ServiceDetailModal';
 import { store } from '../../services/store';
 import { Property, BTPProject, Realization, Publication, CompanySettings } from '../../types';
 import { 
@@ -18,12 +19,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   const [publications, setPublications] = useState<Publication[]>([]);
   const [settings, setSettings] = useState<CompanySettings>(store.getSettings());
 
+  // Service Detail Modal state
+  const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | null>(null);
+
   // Contact form state
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
 
   useEffect(() => {
     const loadData = () => {
@@ -92,7 +97,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             return (
               <div 
                 key={idx}
-                className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-amber-400 transition group flex flex-col justify-between"
+                onClick={() => setSelectedServiceTitle(act.title)}
+                className="bg-white border border-slate-200/80 p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-amber-400 cursor-pointer transition-all group flex flex-col justify-between"
               >
                 <div>
                   <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-slate-950 transition">
@@ -105,7 +111,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                     {act.desc}
                   </p>
                 </div>
-                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-600 group-hover:text-amber-600">
+                <div className="pt-4 mt-4 border-t border-slate-100 flex items-center text-xs font-extrabold text-brand-600 group-hover:text-amber-600">
                   <span>En savoir plus</span>
                   <ArrowRight className="w-3.5 h-3.5 ml-1 transition transform group-hover:translate-x-1" />
                 </div>
@@ -113,7 +119,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             );
           })}
         </div>
+
+        {/* Modal Detail Service */}
+        <ServiceDetailModal 
+          serviceTitle={selectedServiceTitle}
+          onClose={() => setSelectedServiceTitle(null)}
+          onNavigate={onNavigate}
+        />
       </section>
+
 
       {/* 3. NOS BIENS IMMOBILIERS */}
       <section className="bg-slate-900 py-16 text-white">

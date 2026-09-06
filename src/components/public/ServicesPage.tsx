@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { store } from '../../services/store';
 import { Service } from '../../types';
-import { Wrench, CheckCircle, Phone, ArrowRight, Building2 } from 'lucide-react';
+import { Wrench, CheckCircle, Phone, ArrowRight, Building2, Info } from 'lucide-react';
+import { ServiceDetailModal } from './ServiceDetailModal';
 
 interface ServicesPageProps {
   onNavigate: (path: string) => void;
@@ -9,6 +10,7 @@ interface ServicesPageProps {
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
   const [services, setServices] = useState<Service[]>([]);
+  const [selectedServiceTitle, setSelectedServiceTitle] = useState<string | null>(null);
 
   useEffect(() => {
     setServices(store.getServices());
@@ -38,11 +40,11 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
               idx % 2 === 1 ? 'bg-slate-50/60' : ''
             }`}
           >
-            <div className={`md:col-span-5 relative h-64 rounded-2xl overflow-hidden shadow-md ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
+            <div className={`md:col-span-5 relative h-64 rounded-2xl overflow-hidden shadow-md cursor-pointer ${idx % 2 === 1 ? 'md:order-2' : ''}`} onClick={() => setSelectedServiceTitle(serv.title)}>
               <img 
                 src={serv.image || "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=800&q=80"} 
                 alt={serv.title} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
 
@@ -50,7 +52,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
               <span className="text-xs font-bold text-amber-600 uppercase tracking-wider bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
                 Service N°0{idx + 1}
               </span>
-              <h2 className="text-2xl font-extrabold text-slate-900">
+              <h2 className="text-2xl font-extrabold text-slate-900 cursor-pointer hover:text-amber-600 transition" onClick={() => setSelectedServiceTitle(serv.title)}>
                 {serv.title}
               </h2>
               <p className="text-slate-600 text-sm leading-relaxed">
@@ -66,12 +68,20 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
                 ))}
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 flex flex-wrap items-center gap-3">
+                <button
+                  onClick={() => setSelectedServiceTitle(serv.title)}
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold px-5 py-2.5 rounded-xl transition flex items-center space-x-2 shadow-md"
+                >
+                  <Info className="w-4 h-4" />
+                  <span>En savoir plus</span>
+                </button>
+
                 <button
                   onClick={() => onNavigate('/contact')}
                   className="bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition flex items-center space-x-2"
                 >
-                  <span>Demander une étude personnalisée</span>
+                  <span>Demander une étude</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -80,6 +90,13 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ onNavigate }) => {
         ))}
       </div>
 
+      {/* Modal Detail Service */}
+      <ServiceDetailModal 
+        serviceTitle={selectedServiceTitle}
+        onClose={() => setSelectedServiceTitle(null)}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 };
+
