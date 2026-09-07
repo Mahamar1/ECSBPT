@@ -230,11 +230,17 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   const [imagesList, setImagesList] = useState<PropertyImage[]>(property?.images || []);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const availableAmenities = [
+  const defaultAmenities = [
     'Piscine commune', 'Piscine privative', 'Titre Foncier', 'Vue sur Mer', 
     'Ascenseur', 'Groupe électrogène', 'Gardiennage 24/7', 'Garage', 'Jardin', 
     'Climatisation', 'Cuisine équipée', 'Réseau Fibre Wifi'
   ];
+
+  const [allAmenities, setAllAmenities] = useState<string[]>(() => {
+    const existing = property?.amenities || [];
+    return Array.from(new Set([...defaultAmenities, ...existing]));
+  });
+
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(property?.amenities || ['Titre Foncier', 'Gardiennage 24/7']);
   const [customAmenityInput, setCustomAmenityInput] = useState('');
 
@@ -249,6 +255,10 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   const handleAddCustomAmenity = () => {
     const trimmed = customAmenityInput.trim();
     if (!trimmed) return;
+
+    if (!allAmenities.includes(trimmed)) {
+      setAllAmenities(prev => [...prev, trimmed]);
+    }
     if (!selectedAmenities.includes(trimmed)) {
       setSelectedAmenities(prev => [...prev, trimmed]);
     }
@@ -551,7 +561,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
               </label>
               <button
                 type="button"
-                onClick={() => setSelectedAmenities(availableAmenities)}
+                onClick={() => setSelectedAmenities(allAmenities)}
                 className="text-[11px] text-amber-600 font-bold hover:underline"
               >
                 Tout sélectionner
@@ -559,7 +569,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              {availableAmenities.map((amenity) => {
+              {allAmenities.map((amenity) => {
                 const isSelected = selectedAmenities.includes(amenity);
                 return (
                   <button
@@ -590,39 +600,23 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 placeholder="Ajouter un équipement personnalisé (ex: Domotique, Balcon, Penthouses)..."
                 value={customAmenityInput}
                 onChange={(e) => setCustomAmenityInput(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddCustomAmenity(); } }}
-                className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                onKeyDown={(e) => { 
+                  if (e.key === 'Enter') { 
+                    e.preventDefault(); 
+                    handleAddCustomAmenity(); 
+                  } 
+                }}
+                className="flex-1 bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
               <button
                 type="button"
                 onClick={handleAddCustomAmenity}
-                className="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition"
+                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center space-x-1"
               >
-                + Ajouter
+                <Plus className="w-4 h-4 text-amber-400" />
+                <span>+ Ajouter</span>
               </button>
             </div>
-
-            {/* Render custom amenities pills if any exist outside standard list */}
-            {selectedAmenities.filter(a => !availableAmenities.includes(a)).length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block w-full">Équipements personnalisés :</span>
-                {selectedAmenities.filter(a => !availableAmenities.includes(a)).map((customA) => (
-                  <span 
-                    key={customA} 
-                    className="inline-flex items-center space-x-1 bg-amber-500/20 text-amber-900 border border-amber-500/30 text-[11px] font-bold px-2.5 py-1 rounded-lg"
-                  >
-                    <span>{customA}</span>
-                    <button 
-                      type="button" 
-                      onClick={() => toggleAmenity(customA)}
-                      className="text-amber-800 hover:text-red-600 ml-1"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </span>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* MULTI PHOTO UPLOAD MANAGER SECTION */}
