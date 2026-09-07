@@ -163,7 +163,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <div>
                   <div className="relative h-56 overflow-hidden">
                     <img 
-                      src={prop.images[0]?.image_url || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"} 
+                      src={prop.images.find(img => img.is_cover)?.image_url || prop.images[0]?.image_url || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80"} 
                       alt={prop.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />

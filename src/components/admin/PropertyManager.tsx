@@ -116,7 +116,7 @@ export const PropertyManager: React.FC<PropertyManagerProps> = ({ onSelectTab, o
                   <td className="p-3">
                     <div className="flex items-center space-x-3">
                       <img 
-                        src={prop.images[0]?.image_url || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=200&q=80"} 
+                        src={prop.images.find(img => img.is_cover)?.image_url || prop.images[0]?.image_url || "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=200&q=80"} 
                         alt="" 
                         className="w-12 h-10 object-cover rounded-lg border border-slate-200"
                       />
@@ -313,11 +313,23 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   };
 
   const handleRemovePhoto = (id: string) => {
-    setImagesList(imagesList.filter(img => img.id !== id));
+    setImagesList(prev => {
+      const filtered = prev.filter(img => img.id !== id);
+      if (filtered.length > 0 && !filtered.some(img => img.is_cover)) {
+        filtered[0] = { ...filtered[0], is_cover: true };
+      }
+      return filtered;
+    });
   };
 
   const handleSetCoverPhoto = (id: string) => {
-    setImagesList(imagesList.map(img => ({ ...img, is_cover: img.id === id })));
+    setImagesList(prev => {
+      const targetImg = prev.find(img => img.id === id);
+      if (!targetImg) return prev;
+      const otherImgs = prev.filter(img => img.id !== id).map(img => ({ ...img, is_cover: false }));
+      const newCoverImg = { ...targetImg, is_cover: true, display_order: 1 };
+      return [newCoverImg, ...otherImgs.map((img, idx) => ({ ...img, display_order: idx + 2 }))];
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
