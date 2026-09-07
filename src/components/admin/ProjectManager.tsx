@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { store } from '../../services/store';
 import { BTPProject, ProjectType, ProjectStatus } from '../../types';
-import { Plus, Search, Edit2, Trash2, Eye, EyeOff, Hammer, X } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Eye, EyeOff, Hammer, X, Upload, Image as ImageIcon } from 'lucide-react';
 
 export const ProjectManager: React.FC<{ onSelectTab: (tab: string) => void; openNewModal?: boolean }> = ({ onSelectTab, openNewModal }) => {
   const [projects, setProjects] = useState<BTPProject[]>([]);
@@ -145,6 +145,19 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
   const [status, setStatus] = useState<ProjectStatus>(project?.status || 'En cours');
   const [description, setDescription] = useState(project?.description || '');
   const [coverUrl, setCoverUrl] = useState(project?.images[0]?.image_url || 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const resultUrl = event.target?.result as string;
+      if (resultUrl) setCoverUrl(resultUrl);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -265,9 +278,52 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
             />
           </div>
 
-          <div>
-            <label className="block font-semibold mb-1">URL Photo de couverture</label>
-            <input type="url" value={coverUrl} onChange={(e) => setCoverUrl(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2" />
+          <div className="border border-slate-200 p-4 rounded-2xl bg-slate-50 space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <label className="block font-bold text-xs text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <ImageIcon className="w-4 h-4 text-amber-500" />
+                  <span>Photo de Couverture du Chantier BTP</span>
+                </label>
+                <p className="text-[11px] text-slate-500">Téléversez directement une photo depuis votre appareil (PC / Mobile) ou collez un lien.</p>
+              </div>
+
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileUpload} 
+                accept="image/*" 
+                className="hidden" 
+              />
+
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl transition flex items-center justify-center space-x-1.5 shadow"
+              >
+                <Upload className="w-4 h-4" />
+                <span>📁 Téléverser une photo (PC / Phone)</span>
+              </button>
+            </div>
+
+            <div className="flex space-x-2">
+              <input 
+                type="url" 
+                placeholder="https://images.unsplash.com/photo-..." 
+                value={coverUrl} 
+                onChange={(e) => setCoverUrl(e.target.value)} 
+                className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500" 
+              />
+            </div>
+
+            {coverUrl && (
+              <div className="relative rounded-xl overflow-hidden border border-slate-200 h-32 w-full bg-white">
+                <img src={coverUrl} alt="Aperçu du chantier" className="w-full h-full object-cover" />
+                <span className="absolute top-2 left-2 bg-slate-900/80 text-amber-400 font-bold text-[10px] px-2 py-0.5 rounded backdrop-blur-sm">
+                  APERÇU DE COUVERTURE
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="pt-3 flex justify-end space-x-2">

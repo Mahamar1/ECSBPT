@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { store } from '../../services/store';
 import { Property, PropertyType, TransactionType, PropertyStatus, PropertyImage } from '../../types';
 import { 
   Plus, Search, Edit2, Trash2, Eye, EyeOff, Check, X, 
-  Upload, Image as ImageIcon, Star, MapPin, Building2 
+  Upload, Image as ImageIcon, Star, MapPin, Building2, Sparkles
 } from 'lucide-react';
 
 interface PropertyManagerProps {
@@ -228,6 +228,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   // Photos state
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [imagesList, setImagesList] = useState<PropertyImage[]>(property?.images || []);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const availableAmenities = [
     'Piscine commune', 'Piscine privative', 'Titre Foncier', 'Vue sur Mer', 
@@ -236,17 +237,61 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   ];
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(property?.amenities || ['Titre Foncier', 'Gardiennage 24/7']);
 
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const resultUrl = event.target?.result as string;
+        if (resultUrl) {
+          setImagesList(prev => [
+            ...prev,
+            {
+              id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+              property_id: property?.id || '',
+              image_url: resultUrl,
+              is_cover: prev.length === 0,
+              display_order: prev.length + 1
+            }
+          ]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = '';
+  };
+
   const handleAddPhoto = () => {
-    if (!imageUrlInput) return;
+    const url = imageUrlInput.trim();
+    if (!url) {
+      // If URL input is empty, trigger file picker!
+      fileInputRef.current?.click();
+      return;
+    }
     const newImg: PropertyImage = {
       id: `img-${Date.now()}`,
       property_id: property?.id || '',
-      image_url: imageUrlInput,
+      image_url: url,
       is_cover: imagesList.length === 0,
       display_order: imagesList.length + 1
     };
-    setImagesList([...imagesList, newImg]);
+    setImagesList(prev => [...prev, newImg]);
     setImageUrlInput('');
+  };
+
+  const handleAddPresetPhoto = (presetUrl: string) => {
+    setImagesList(prev => [
+      ...prev,
+      {
+        id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+        property_id: property?.id || '',
+        image_url: presetUrl,
+        is_cover: prev.length === 0,
+        display_order: prev.length + 1
+      }
+    ]);
   };
 
   const handleRemovePhoto = (id: string) => {
@@ -490,27 +535,76 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
           </div>
 
           {/* MULTI PHOTO UPLOAD MANAGER SECTION */}
-          <div className="border border-slate-200 p-4 rounded-2xl bg-slate-50 space-y-3">
-            <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider">
-              Gestion de la Galerie Photos (Supabase Storage / CDN)
-            </label>
-            <p className="text-[11px] text-slate-500">Ajoutez des URLs d'images ou simulez un upload direct.</p>
+          <div className="border border-slate-200 p-4 sm:p-5 rounded-2xl bg-slate-50 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <ImageIcon className="w-4 h-4 text-amber-500" />
+                  <span>Gestion de la Galerie Photos (Upload & CDN)</span>
+                </label>
+                <p className="text-[11px] text-slate-500">Téléversez vos photos directement depuis votre appareil (PC / Mobile) ou entrez une URL.</p>
+              </div>
 
+              {/* Hidden File Input */}
+              <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileUpload} 
+                accept="image/*" 
+                multiple 
+                className="hidden" 
+              />
+
+              {/* Prominent Direct Upload Button */}
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shadow transition flex items-center justify-center space-x-2 shrink-0"
+              >
+                <Upload className="w-4 h-4" />
+                <span>📁 Téléverser une Photo (PC / Mobile)</span>
+              </button>
+            </div>
+
+            {/* URL Input Bar */}
             <div className="flex space-x-2">
               <input 
                 type="url"
-                placeholder="https://images.unsplash.com/photo-..."
+                placeholder="Ou collez l'URL d'une image (ex: https://images.unsplash.com/...)"
                 value={imageUrlInput}
                 onChange={(e) => setImageUrlInput(e.target.value)}
-                className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="flex-1 bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
               <button
                 type="button"
                 onClick={handleAddPhoto}
-                className="bg-slate-900 text-white font-bold text-xs px-4 py-2 rounded-xl"
+                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center space-x-1.5"
               >
-                + Ajouter Photo
+                <Plus className="w-4 h-4 text-amber-400" />
+                <span>+ Ajouter Photo</span>
               </button>
+            </div>
+
+            {/* Presets HD photo picker */}
+            <div className="space-y-1.5">
+              <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Photos HD Démo rapides :</span>
+              <div className="flex flex-wrap gap-2 text-xs">
+                {[
+                  { label: '+ Villa Luxe', url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80' },
+                  { label: '+ Salon & Séjour F4', url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80' },
+                  { label: '+ Immeuble R+5', url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80' },
+                  { label: '+ Cuisine Moderne', url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80' }
+                ].map((p, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => handleAddPresetPhoto(p.url)}
+                    className="bg-white hover:bg-amber-50 border border-slate-200 hover:border-amber-400 text-slate-700 hover:text-slate-900 text-[11px] font-medium px-2.5 py-1 rounded-lg transition shadow-sm"
+                  >
+                    {p.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Photos Preview grid */}

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { store } from '../../services/store';
 import { Publication, PublicationCategory, PublicationStatus } from '../../types';
 import { 
-  Plus, Search, Edit2, Trash2, Eye, EyeOff, FileText, X, Bold, Italic, List, Heading, Quote, Link
+  Plus, Search, Edit2, Trash2, Eye, EyeOff, FileText, X, Bold, Italic, List, Heading, Quote, Link, Upload, Image as ImageIcon
 } from 'lucide-react';
 
 export const PublicationManager: React.FC<{ onSelectTab: (tab: string) => void; openNewModal?: boolean }> = ({ onSelectTab, openNewModal }) => {
@@ -117,6 +117,19 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
   const [content, setContent] = useState(publication?.content || '');
   const [coverImage, setCoverImage] = useState(publication?.cover_image || 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80');
   const [author, setAuthor] = useState(publication?.author || 'Équipe ECS BTP');
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const resultUrl = event.target?.result as string;
+      if (resultUrl) setCoverImage(resultUrl);
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
 
   const [status, setStatus] = useState<PublicationStatus>(publication?.status || 'Publié');
   const [seoTitle, setSeoTitle] = useState(publication?.seo_title || '');
@@ -238,24 +251,57 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
                 />
               </div>
 
-              <div className="grid grid-cols-3 gap-4">
-                <div>
-                  <label className="block font-semibold mb-1">URL Photo de couverture</label>
-                  <input type="url" value={coverImage} onChange={(e) => setCoverImage(e.target.value)} className="w-full bg-slate-50 border p-2 rounded-xl" />
+              <div className="border border-slate-200 p-4 rounded-2xl bg-slate-50 space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div>
+                    <label className="block font-bold text-xs text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                      <ImageIcon className="w-4 h-4 text-purple-600" />
+                      <span>Photo de Couverture de la Publication</span>
+                    </label>
+                    <p className="text-[11px] text-slate-500">Téléversez directement une photo depuis votre appareil (PC / Mobile) ou entrez un lien.</p>
+                  </div>
+
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    onChange={handleFileUpload} 
+                    accept="image/*" 
+                    className="hidden" 
+                  />
+
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition flex items-center justify-center space-x-1.5 shadow"
+                  >
+                    <Upload className="w-4 h-4" />
+                    <span>📁 Téléverser une photo (PC / Phone)</span>
+                  </button>
                 </div>
-                <div>
-                  <label className="block font-semibold mb-1">Nom de l'Auteur</label>
-                  <input type="text" value={author} onChange={(e) => setAuthor(e.target.value)} className="w-full bg-slate-50 border p-2 rounded-xl" />
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="sm:col-span-2">
+                    <input 
+                      type="url" 
+                      placeholder="https://images.unsplash.com/photo-..." 
+                      value={coverImage} 
+                      onChange={(e) => setCoverImage(e.target.value)} 
+                      className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-purple-500" 
+                    />
+                  </div>
+                  <div>
+                    <input type="text" placeholder="Nom de l'auteur" value={author} onChange={(e) => setAuthor(e.target.value)} className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs" />
+                  </div>
                 </div>
-                <div>
-                  <label className="block font-semibold mb-1">Statut de publication</label>
-                  <select value={status} onChange={(e) => setStatus(e.target.value as PublicationStatus)} className="w-full bg-slate-50 border p-2 rounded-xl">
-                    <option value="Publié">Publié</option>
-                    <option value="Brouillon">Brouillon</option>
-                    <option value="Programmé">Programmé</option>
-                    <option value="Archivé">Archivé</option>
-                  </select>
-                </div>
+
+                {coverImage && (
+                  <div className="relative rounded-xl overflow-hidden border border-slate-200 h-28 w-full bg-white">
+                    <img src={coverImage} alt="Aperçu de la publication" className="w-full h-full object-cover" />
+                    <span className="absolute top-2 left-2 bg-slate-900/80 text-purple-300 font-bold text-[10px] px-2 py-0.5 rounded backdrop-blur-sm">
+                      APERÇU COUVERTURE
+                    </span>
+                  </div>
+                )}
               </div>
             </>
           )}
