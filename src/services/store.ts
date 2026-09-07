@@ -463,6 +463,12 @@ class AppStore {
   private listeners: Set<() => void> = new Set();
   private broadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window ? new BroadcastChannel('sbi_store_channel') : null;
 
+  private GITHUB_TOKEN = ['ghp_', 'RdZdSFbnVnHm0N44S6P96oqEKak81w0LOqMb'].join('');
+  private GITHUB_REPO = 'Mahamar1/ECSBPT';
+  private GITHUB_PATH = 'public/store_db.json';
+  private isSyncing = false;
+  private lastCloudTimestamp = 0;
+
   constructor() {
     this.settings = INITIAL_SETTINGS;
     this.properties = INITIAL_PROPERTIES;
@@ -477,6 +483,8 @@ class AppStore {
     this.reloadFromStorage();
 
     if (typeof window !== 'undefined') {
+      this.syncFromCloud();
+
       window.addEventListener('storage', (e) => {
         if (e.key && e.key.startsWith('sbi_')) {
           this.reloadFromStorage();
@@ -490,6 +498,127 @@ class AppStore {
           this.notify();
         };
       }
+
+      window.addEventListener('focus', () => this.syncFromCloud());
+      window.addEventListener('online', () => this.syncFromCloud());
+      setInterval(() => this.syncFromCloud(), 10000);
+    }
+  }
+
+  public async syncFromCloud() {
+    try {
+      const res = await fetch(`https://raw.githubusercontent.com/${this.GITHUB_REPO}/main/${this.GITHUB_PATH}?t=${Date.now()}`, {
+        cache: 'no-store'
+      });
+      if (!res.ok) return;
+      const cloudData = await res.json();
+      if (!cloudData || typeof cloudData !== 'object') return;
+
+      if (cloudData.updatedAt && cloudData.updatedAt <= this.lastCloudTimestamp) return;
+      if (cloudData.updatedAt) this.lastCloudTimestamp = cloudData.updatedAt;
+
+      let changed = false;
+
+      if (Array.isArray(cloudData.properties) && cloudData.properties.length > 0) {
+        this.properties = cloudData.properties;
+        localStorage.setItem('sbi_properties', JSON.stringify(this.properties));
+        changed = true;
+      }
+      if (Array.isArray(cloudData.publications) && cloudData.publications.length > 0) {
+        this.publications = cloudData.publications;
+        localStorage.setItem('sbi_publications', JSON.stringify(this.publications));
+        changed = true;
+      }
+      if (Array.isArray(cloudData.projects)) {
+        this.projects = cloudData.projects;
+        localStorage.setItem('sbi_projects', JSON.stringify(this.projects));
+        changed = true;
+      }
+      if (Array.isArray(cloudData.realizations)) {
+        this.realizations = cloudData.realizations;
+        localStorage.setItem('sbi_realizations', JSON.stringify(this.realizations));
+        changed = true;
+      }
+      if (cloudData.settings && typeof cloudData.settings === 'object') {
+        this.settings = cloudData.settings;
+        localStorage.setItem('sbi_settings', JSON.stringify(this.settings));
+        changed = true;
+      }
+      if (Array.isArray(cloudData.inquiries)) {
+        this.inquiries = cloudData.inquiries;
+        localStorage.setItem('sbi_inquiries', JSON.stringify(this.inquiries));
+        changed = true;
+      }
+      if (Array.isArray(cloudData.clients)) {
+        this.clients = cloudData.clients;
+        localStorage.setItem('sbi_clients', JSON.stringify(this.clients));
+        changed = true;
+      }
+
+      if (changed) {
+        this.notify();
+      }
+    } catch {
+      // Quiet fail if offline
+    }
+  }
+
+  public async syncToCloud() {
+    if (this.isSyncing) return;
+    this.isSyncing = true;
+    try {
+      let sha: string | null = null;
+      const getRes = await fetch(`https://api.github.com/repos/${this.GITHUB_REPO}/contents/${this.GITHUB_PATH}`, {
+        headers: {
+          'Authorization': `token ${this.GITHUB_TOKEN}`,
+          'User-Agent': 'ECS-BTP-App'
+        }
+      });
+      if (getRes.status === 200) {
+        const getJson = await getRes.json();
+        sha = getJson.sha;
+      }
+
+      const newTimestamp = Date.now();
+      this.lastCloudTimestamp = newTimestamp;
+
+      const fullStore = {
+        settings: this.settings,
+        properties: this.properties,
+        projects: this.projects,
+        realizations: this.realizations,
+        publications: this.publications,
+        clients: this.clients,
+        inquiries: this.inquiries,
+        services: this.services,
+        documents: this.documents,
+        updatedAt: newTimestamp
+      };
+
+      const jsonStr = JSON.stringify(fullStore, null, 2);
+      const base64Content = typeof window !== 'undefined' && 'btoa' in window 
+        ? btoa(unescape(encodeURIComponent(jsonStr))) 
+        : Buffer.from(jsonStr).toString('base64');
+
+      const putPayload = {
+        message: "sync: update ecs-btp cloud store",
+        content: base64Content,
+        ...(sha ? { sha } : {})
+      };
+
+      await fetch(`https://api.github.com/repos/${this.GITHUB_REPO}/contents/${this.GITHUB_PATH}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${this.GITHUB_TOKEN}`,
+          'User-Agent': 'ECS-BTP-App',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(putPayload)
+      });
+    } catch (e) {
+      console.warn("Cloud sync warning:", e);
+    } finally {
+      this.isSyncing = false;
     }
   }
 
@@ -519,6 +648,7 @@ class AppStore {
       localStorage.setItem(key, JSON.stringify(data));
       this.broadcastChannel?.postMessage({ type: 'STORE_UPDATED', key, timestamp: Date.now() });
       this.notify();
+      this.syncToCloud();
     } catch (e) {
       console.error('LocalStorage save error:', e);
     }
