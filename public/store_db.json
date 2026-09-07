@@ -61,45 +61,6 @@
       "updated_at": "2026-09-07T14:09:11.594Z"
     },
     {
-      "id": "prop-2",
-      "title": "Villa Moderne R+1 avec Piscine & Jardin à Mermoz",
-      "slug": "villa-moderne-r1-avec-piscine-jardin-mermoz",
-      "reference": "SBI-MER-002",
-      "type": "Villa",
-      "transaction_type": "Vente",
-      "price": 320000000,
-      "currency": "FCFA",
-      "location": "Mermoz Pyrotechnie",
-      "neighborhood": "Mermoz",
-      "city": "Dakar",
-      "surface": 450,
-      "bedrooms": 5,
-      "bathrooms": 5,
-      "floors": 2,
-      "description": "Splendide villa contemporaine R+1 construite sur un terrain de 450m² dans le quartier prisé de Mermoz. La villa offre des prestations d'exception : grand séjour traversant illuminé par de baies vitrées coulissantes donnant sur la piscine chauffée et le jardin paysager, 5 suites spacieuses avec salles de bains, garage fermé pour 3 véhicules et quartier pour le personnel.",
-      "amenities": [
-        "Piscine privative",
-        "Jardin paysager",
-        "Garage 3 voitures",
-        "Groupe électrogène 50 kVA"
-      ],
-      "status": "Disponible",
-      "published": true,
-      "featured": true,
-      "agent_contact": "+221 77 605 86 86",
-      "created_at": "2026-08-20T14:30:00Z",
-      "images": [
-        {
-          "id": "img-2-1",
-          "property_id": "prop-2",
-          "image_url": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80",
-          "is_cover": true,
-          "display_order": 1
-        }
-      ],
-      "updated_at": "2026-09-07T14:01:01.333Z"
-    },
-    {
       "id": "prop-3",
       "title": "Appartement F3 Meublé à Louer à Fann Résidence",
       "slug": "appartement-f3-meuble-a-louer-fann-residence",
@@ -329,5 +290,5 @@
       "created_at": "2026-03-20T10:30:00Z"
     }
   ],
-  "updatedAt": 1788790152208
+  "updatedAt": 1788790188834
 }
