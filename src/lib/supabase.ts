@@ -36,6 +36,7 @@ export const isSupabaseConfigured = (): boolean => {
     Boolean(url) && 
     Boolean(key) && 
     url.startsWith('https://') && 
+    !url.includes('votre-projet.supabase.co') &&
     !url.includes('xyzcompany.supabase.co') &&
     !url.includes('dummy.supabase.co')
   );

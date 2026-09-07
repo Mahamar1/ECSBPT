@@ -2,6 +2,8 @@ import {
   Property, BTPProject, Realization, Publication, 
   Client, Inquiry, Service, DocumentItem, MessageItem, CompanySettings, UserProfile 
 } from '../types';
+import { isSupabaseConfigured } from '../lib/supabase';
+import { fetchFromSupabase, syncLocalStoreToSupabase } from './supabaseSync';
 
 // ==========================================
 // INITIAL DEMO SEED DATA (DAKAR & SÉNÉGAL)
@@ -507,6 +509,15 @@ class AppStore {
 
   public async syncFromCloud() {
     try {
+      if (isSupabaseConfigured()) {
+        const res = await fetchFromSupabase();
+        if (res.success) {
+          this.reloadFromStorage();
+          this.notify();
+          return;
+        }
+      }
+
       const res = await fetch(`https://raw.githubusercontent.com/${this.GITHUB_REPO}/main/${this.GITHUB_PATH}?t=${Date.now()}`, {
         cache: 'no-store'
       });
@@ -567,6 +578,9 @@ class AppStore {
     if (this.isSyncing) return;
     this.isSyncing = true;
     try {
+      if (isSupabaseConfigured()) {
+        await syncLocalStoreToSupabase();
+      }
       let sha: string | null = null;
       const getRes = await fetch(`https://api.github.com/repos/${this.GITHUB_REPO}/contents/${this.GITHUB_PATH}`, {
         headers: {

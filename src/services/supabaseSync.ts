@@ -1,5 +1,55 @@
 import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabase';
 import { store } from './store';
+import { Property, BTPProject, Realization, Publication, Client, Inquiry, CompanySettings } from '../types';
+
+export async function fetchFromSupabase(): Promise<{ success: boolean; message: string }> {
+  if (!isSupabaseConfigured()) {
+    return { success: false, message: 'Supabase non configuré' };
+  }
+
+  const supabase = getSupabaseClient();
+
+  try {
+    // 1. Fetch Properties
+    const { data: propertiesData, error: propErr } = await supabase.from('properties').select('*');
+    if (!propErr && propertiesData && propertiesData.length > 0) {
+      const { data: imagesData } = await supabase.from('property_images').select('*');
+      const properties: Property[] = propertiesData.map(p => ({
+        ...p,
+        images: imagesData ? imagesData.filter(img => img.property_id === p.id) : []
+      }));
+      localStorage.setItem('sbi_properties', JSON.stringify(properties));
+    }
+
+    // 2. Fetch Publications
+    const { data: pubsData, error: pubErr } = await supabase.from('publications').select('*');
+    if (!pubErr && pubsData && pubsData.length > 0) {
+      localStorage.setItem('sbi_publications', JSON.stringify(pubsData));
+    }
+
+    // 3. Fetch Projects
+    const { data: projData, error: projErr } = await supabase.from('projects').select('*');
+    if (!projErr && projData && projData.length > 0) {
+      localStorage.setItem('sbi_projects', JSON.stringify(projData));
+    }
+
+    // 4. Fetch Realizations
+    const { data: realData, error: realErr } = await supabase.from('realizations').select('*');
+    if (!realErr && realData && realData.length > 0) {
+      localStorage.setItem('sbi_realizations', JSON.stringify(realData));
+    }
+
+    // 5. Fetch Settings
+    const { data: settingsData, error: setErr } = await supabase.from('settings').select('*').single();
+    if (!setErr && settingsData) {
+      localStorage.setItem('sbi_settings', JSON.stringify(settingsData));
+    }
+
+    return { success: true, message: 'Données récupérées avec succès depuis Supabase !' };
+  } catch (err: any) {
+    return { success: false, message: err.message || 'Erreur lors de la récupération Supabase' };
+  }
+}
 
 export async function syncLocalStoreToSupabase(): Promise<{ success: boolean; syncedCount: number; errors: string[] }> {
   if (!isSupabaseConfigured()) {
@@ -43,10 +93,47 @@ export async function syncLocalStoreToSupabase(): Promise<{ success: boolean; sy
         errors.push(`Propriété (${prop.reference}): ${error.message}`);
       } else {
         syncedCount++;
+        if (prop.images && prop.images.length > 0) {
+          for (const img of prop.images) {
+            await supabase.from('property_images').upsert({
+              id: img.id,
+              property_id: prop.id,
+              image_url: img.image_url,
+              is_cover: img.is_cover,
+              display_order: img.display_order
+            }, { onConflict: 'id' });
+          }
+        }
       }
     }
 
-    // 2. Sync BTP Projects
+    // 2. Sync Publications
+    const publications = store.getPublications();
+    for (const pub of publications) {
+      const { error } = await supabase.from('publications').upsert({
+        id: pub.id,
+        title: pub.title,
+        slug: pub.slug,
+        content: pub.content,
+        excerpt: pub.excerpt,
+        category: pub.category,
+        cover_image: pub.cover_image,
+        status: pub.status,
+        published_at: pub.published_at,
+        author: pub.author,
+        seo_title: pub.seo_title,
+        seo_description: pub.seo_description,
+        created_at: pub.created_at
+      }, { onConflict: 'id' });
+
+      if (error) {
+        errors.push(`Publication (${pub.title}): ${error.message}`);
+      } else {
+        syncedCount++;
+      }
+    }
+
+    // 3. Sync BTP Projects
     const projects = store.getProjects();
     for (const proj of projects) {
       const { error } = await supabase.from('projects').upsert({
@@ -75,27 +162,26 @@ export async function syncLocalStoreToSupabase(): Promise<{ success: boolean; sy
       }
     }
 
-    // 3. Sync CRM Clients
-    const clients = store.getClients();
-    for (const cli of clients) {
-      const { error } = await supabase.from('crm_clients').upsert({
-        id: cli.id,
-        first_name: cli.first_name,
-        last_name: cli.last_name,
-        phone: cli.phone,
-        email: cli.email,
-        address: cli.address,
-        client_type: cli.client_type,
-        notes: cli.notes,
-        created_at: cli.created_at
-      }, { onConflict: 'id' });
+    // 4. Sync Settings
+    const settings = store.getSettings();
+    const { error: setErr } = await supabase.from('settings').upsert({
+      id: 'company-settings-main',
+      company_name: settings.company_name,
+      logo: settings.logo,
+      tagline: settings.tagline,
+      phone: settings.phone,
+      whatsapp: settings.whatsapp,
+      email: settings.email,
+      address: settings.address,
+      website: settings.website,
+      facebook: settings.facebook,
+      instagram: settings.instagram,
+      linkedin: settings.linkedin,
+      youtube: settings.youtube,
+      description: settings.description
+    }, { onConflict: 'id' });
 
-      if (error) {
-        errors.push(`Client (${cli.first_name} ${cli.last_name}): ${error.message}`);
-      } else {
-        syncedCount++;
-      }
-    }
+    if (!setErr) syncedCount++;
 
     return {
       success: errors.length === 0,
