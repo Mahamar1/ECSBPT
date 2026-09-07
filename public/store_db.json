@@ -24,7 +24,7 @@
       "reference": "SBI-ALM-001",
       "type": "Appartement",
       "transaction_type": "Vente",
-      "price": 185000000,
+      "price": 185300,
       "currency": "FCFA",
       "location": "Almadies",
       "neighborhood": "Zone Ambassades",
@@ -58,7 +58,7 @@
           "display_order": 1
         }
       ],
-      "updated_at": "2026-09-07T13:52:20.590Z"
+      "updated_at": "2026-09-07T14:07:37.135Z"
     },
     {
       "id": "prop-2",
@@ -329,5 +329,5 @@
       "created_at": "2026-03-20T10:30:00Z"
     }
   ],
-  "updatedAt": 1788789667127
+  "updatedAt": 1788790058100
 }
