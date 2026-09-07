@@ -59,43 +59,6 @@
         }
       ],
       "updated_at": "2026-09-07T14:09:11.594Z"
-    },
-    {
-      "id": "prop-5",
-      "title": "Immeuble R+5 Commercial & Résidentiel au Plateau Dakar",
-      "slug": "immeuble-r5-commercial-residentiel-plateau-dakar",
-      "reference": "SBI-PLA-005",
-      "type": "Immeuble",
-      "transaction_type": "Vente",
-      "price": 1200000000,
-      "currency": "FCFA",
-      "location": "Dakar Plateau",
-      "neighborhood": "Avenue Ponty",
-      "city": "Dakar",
-      "surface": 1200,
-      "bedrooms": 12,
-      "bathrooms": 14,
-      "floors": 6,
-      "description": "Opportunité exceptionnelle d'investissement immobilier au cœur du quartier des affaires de Dakar Plateau.",
-      "amenities": [
-        "Emplacement premium",
-        "Rentabilité > 9%",
-        "Ascenseur double"
-      ],
-      "status": "Disponible",
-      "published": true,
-      "featured": true,
-      "agent_contact": "+221 77 605 86 86",
-      "created_at": "2026-09-02T16:20:00Z",
-      "images": [
-        {
-          "id": "img-5-1",
-          "property_id": "prop-5",
-          "image_url": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
-          "is_cover": true,
-          "display_order": 1
-        }
-      ]
     }
   ],
   "projects": [],
@@ -217,5 +180,5 @@
       "created_at": "2026-03-20T10:30:00Z"
     }
   ],
-  "updatedAt": 1788790484985
+  "updatedAt": 1788791331139
 }
