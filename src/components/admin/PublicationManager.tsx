@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { store } from '../../services/store';
 import { Publication, PublicationCategory, PublicationStatus } from '../../types';
+import { compressImage } from '../../utils/security';
 import { 
   Plus, Search, Edit2, Trash2, Eye, EyeOff, FileText, X, Bold, Italic, List, Heading, Quote, Link, Upload, Image as ImageIcon
 } from 'lucide-react';
@@ -123,9 +124,16 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const resultUrl = event.target?.result as string;
-      if (resultUrl) setCoverImage(resultUrl);
+      if (resultUrl) {
+        try {
+          const compressed = await compressImage(resultUrl, 1200, 0.75);
+          setCoverImage(compressed);
+        } catch {
+          setCoverImage(resultUrl);
+        }
+      }
     };
     reader.readAsDataURL(file);
     e.target.value = '';

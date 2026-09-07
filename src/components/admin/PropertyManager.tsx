@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { store } from '../../services/store';
 import { Property, PropertyType, TransactionType, PropertyStatus, PropertyImage } from '../../types';
+import { compressImage } from '../../utils/security';
 import { 
   Plus, Search, Edit2, Trash2, Eye, EyeOff, Check, X, 
-  Upload, Image as ImageIcon, Star, MapPin, Building2, Sparkles
+  Upload, Image as ImageIcon, Star, MapPin, Building2, Sparkles, Loader2
 } from 'lucide-react';
 
 interface PropertyManagerProps {
@@ -225,6 +226,9 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   const [published, setPublished] = useState(property?.published ?? true);
   const [featured, setFeatured] = useState(property?.featured ?? false);
 
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
   // Photos state
   const [imageUrlInput, setImageUrlInput] = useState('');
   const [imagesList, setImagesList] = useState<PropertyImage[]>(property?.images || []);
@@ -271,19 +275,33 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
 
     Array.from(files).forEach((file) => {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = async (event) => {
         const resultUrl = event.target?.result as string;
         if (resultUrl) {
-          setImagesList(prev => [
-            ...prev,
-            {
-              id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-              property_id: property?.id || '',
-              image_url: resultUrl,
-              is_cover: prev.length === 0,
-              display_order: prev.length + 1
-            }
-          ]);
+          try {
+            const compressed = await compressImage(resultUrl, 1200, 0.75);
+            setImagesList(prev => [
+              ...prev,
+              {
+                id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+                property_id: property?.id || '',
+                image_url: compressed,
+                is_cover: prev.length === 0,
+                display_order: prev.length + 1
+              }
+            ]);
+          } catch (err) {
+            setImagesList(prev => [
+              ...prev,
+              {
+                id: `img-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+                property_id: property?.id || '',
+                image_url: resultUrl,
+                is_cover: prev.length === 0,
+                display_order: prev.length + 1
+              }
+            ]);
+          }
         }
       };
       reader.readAsDataURL(file);
@@ -342,40 +360,57 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!title || !price || !description) return;
+    setErrorMsg('');
 
-    store.saveProperty({
-      id: property?.id,
-      title,
-      reference,
-      type,
-      transaction_type: transactionType,
-      price: Number(price),
-      currency,
-      location,
-      neighborhood,
-      city,
-      surface: Number(surface),
-      bedrooms: Number(bedrooms),
-      bathrooms: Number(bathrooms),
-      floors: Number(floors),
-      description,
-      amenities: selectedAmenities,
-      status,
-      published,
-      featured,
-      images: imagesList.length > 0 ? imagesList : [{
-        id: `img-${Date.now()}`,
-        property_id: property?.id || '',
-        image_url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
-        is_cover: true,
-        display_order: 1
-      }]
-    });
+    if (!title.trim()) {
+      setErrorMsg('⚠️ Veuillez saisir un titre pour le bien.');
+      return;
+    }
+    if (!description.trim()) {
+      setErrorMsg('⚠️ Veuillez saisir une description détaillée pour le bien.');
+      return;
+    }
 
-    onClose();
+    setIsSaving(true);
+    try {
+      store.saveProperty({
+        id: property?.id,
+        title: title.trim(),
+        reference: reference.trim() || `ECS-${Math.floor(100 + Math.random() * 900)}`,
+        type,
+        transaction_type: transactionType,
+        price: Number(price) || 0,
+        currency: currency.trim() || 'FCFA',
+        location: location.trim(),
+        neighborhood: neighborhood.trim() || location.trim() || 'Dakar',
+        city: city.trim() || 'Dakar',
+        surface: Number(surface) || 0,
+        bedrooms: Number(bedrooms) || 0,
+        bathrooms: Number(bathrooms) || 0,
+        floors: Number(floors) || 0,
+        description: description.trim(),
+        amenities: selectedAmenities,
+        status,
+        published,
+        featured,
+        images: imagesList.length > 0 ? imagesList : [{
+          id: `img-${Date.now()}`,
+          property_id: property?.id || '',
+          image_url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80',
+          is_cover: true,
+          display_order: 1
+        }]
+      });
+
+      onClose();
+    } catch (err) {
+      console.error("Erreur enregistrement bien:", err);
+      setErrorMsg("Une erreur est survenue lors de l'enregistrement. Veuillez réessayer.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -391,6 +426,13 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
             <X className="w-5 h-5" />
           </button>
         </div>
+
+        {errorMsg && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-xs font-bold flex items-center justify-between">
+            <span>{errorMsg}</span>
+            <button type="button" onClick={() => setErrorMsg('')} className="text-red-500 hover:text-red-700">✕</button>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           
@@ -784,9 +826,17 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
             </button>
             <button
               type="submit"
-              className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow-md"
+              disabled={isSaving}
+              className="bg-amber-500 hover:bg-amber-400 disabled:opacity-50 text-slate-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow-md flex items-center space-x-2 cursor-pointer"
             >
-              Enregistrer le bien
+              {isSaving ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Enregistrement en cours...</span>
+                </>
+              ) : (
+                <span>Enregistrer le bien</span>
+              )}
             </button>
           </div>
 

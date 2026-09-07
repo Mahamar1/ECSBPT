@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { store } from '../../services/store';
 import { BTPProject, ProjectType, ProjectStatus } from '../../types';
+import { compressImage } from '../../utils/security';
 import { Plus, Search, Edit2, Trash2, Eye, EyeOff, Hammer, X, Upload, Image as ImageIcon } from 'lucide-react';
 
 export const ProjectManager: React.FC<{ onSelectTab: (tab: string) => void; openNewModal?: boolean }> = ({ onSelectTab, openNewModal }) => {
@@ -151,9 +152,16 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = async (event) => {
       const resultUrl = event.target?.result as string;
-      if (resultUrl) setCoverUrl(resultUrl);
+      if (resultUrl) {
+        try {
+          const compressed = await compressImage(resultUrl, 1200, 0.75);
+          setCoverUrl(compressed);
+        } catch {
+          setCoverUrl(resultUrl);
+        }
+      }
     };
     reader.readAsDataURL(file);
     e.target.value = '';
