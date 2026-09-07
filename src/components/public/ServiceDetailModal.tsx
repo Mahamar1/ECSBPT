@@ -258,7 +258,7 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({ serviceT
           <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-2 text-slate-600 font-semibold text-xs">
               <Phone className="w-4 h-4 text-amber-500" />
-              <span>Assistance Directe : <strong className="text-slate-900">+221 33 869 10 10</strong></span>
+              <span>Assistance Directe : <strong className="text-slate-900">+221 77 605 86 86 / +221 77 620 95 95</strong></span>
             </div>
 
             <div className="flex items-center space-x-3 w-full sm:w-auto">

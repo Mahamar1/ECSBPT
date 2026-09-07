@@ -11,8 +11,8 @@ export const INITIAL_SETTINGS: CompanySettings = {
   company_name: "ECS BTP",
   logo: "/logo.png",
   tagline: "Construire aujourd'hui, investir pour demain.",
-  phone: "+221 33 869 10 10",
-  whatsapp: "+221 77 450 20 20",
+  phone: "+221 77 605 86 86 / +221 77 620 95 95 / +221 78 275 94 90",
+  whatsapp: "+221 77 605 86 86",
   email: "contact@ecs-btp.sn",
   address: "Route des Almadies, Immeuble ECS Tower, Dakar, Sénégal",
   website: "https://ecs-btp.sn",
@@ -48,7 +48,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     status: "Disponible",
     published: true,
     featured: true,
-    agent_contact: "+221 77 450 20 20",
+    agent_contact: "+221 77 605 86 86",
     created_at: "2026-08-15T10:00:00Z",
     images: [
       { id: "img-1-1", property_id: "prop-1", image_url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80", is_cover: true, display_order: 1 },
@@ -77,7 +77,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     status: "Disponible",
     published: true,
     featured: true,
-    agent_contact: "+221 77 450 20 20",
+    agent_contact: "+221 77 605 86 86",
     created_at: "2026-08-20T14:30:00Z",
     images: [
       { id: "img-2-1", property_id: "prop-2", image_url: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80", is_cover: true, display_order: 1 },
@@ -105,7 +105,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     status: "Disponible",
     published: true,
     featured: false,
-    agent_contact: "+221 77 450 20 20",
+    agent_contact: "+221 77 605 86 86",
     created_at: "2026-08-28T09:15:00Z",
     images: [
       { id: "img-3-1", property_id: "prop-3", image_url: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80", is_cover: true, display_order: 1 }
@@ -132,7 +132,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     status: "Disponible",
     published: true,
     featured: false,
-    agent_contact: "+221 77 450 20 20",
+    agent_contact: "+221 77 605 86 86",
     created_at: "2026-09-01T11:00:00Z",
     images: [
       { id: "img-4-1", property_id: "prop-4", image_url: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80", is_cover: true, display_order: 1 }
@@ -159,7 +159,7 @@ export const INITIAL_PROPERTIES: Property[] = [
     status: "Disponible",
     published: true,
     featured: true,
-    agent_contact: "+221 77 450 20 20",
+    agent_contact: "+221 77 605 86 86",
     created_at: "2026-09-02T16:20:00Z",
     images: [
       { id: "img-5-1", property_id: "prop-5", image_url: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80", is_cover: true, display_order: 1 }
