@@ -179,21 +179,6 @@
   "realizations": [],
   "publications": [
     {
-      "id": "pub-1",
-      "title": "Pourquoi Investir dans l'Immobilier Neuf à Dakar en 2026 ?",
-      "slug": "pourquoi-investir-dans-limmobilier-neuf-a-dakar-en-2026",
-      "category": "Conseils",
-      "excerpt": "Découvrez les zones à forte plus-value à Dakar (Almadies, Ngor, Diamniadio) et les avantages fiscaux et locatifs de la promotion neuve au Sénégal.",
-      "content": "<h2>L'essor du marché immobilier sénégalais</h2><p>Avec une croissance économique soutenue...</p>",
-      "cover_image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
-      "status": "Publié",
-      "published_at": "2026-08-10T09:00:00Z",
-      "author": "Ing. Mouhamed Niang",
-      "seo_title": "Investissement Immobilier Dakar 2026 | Conseils & Rendement - ECS BTP",
-      "seo_description": "Guide complet sur l'achat et l'investissement immobilier neuf à Dakar.",
-      "created_at": "2026-08-10T09:00:00Z"
-    },
-    {
       "id": "pub-2",
       "title": "Lancement du Chantier de la Tour 'ECS Horizon' aux Almadies",
       "slug": "lancement-du-chantier-de-la-tour-ecs-horizon-aux-almadies",
@@ -294,5 +279,5 @@
       "created_at": "2026-03-20T10:30:00Z"
     }
   ],
-  "updatedAt": 1788795032750
+  "updatedAt": 1788795111776
 }
