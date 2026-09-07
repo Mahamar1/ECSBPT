@@ -236,6 +236,24 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
     'Climatisation', 'Cuisine équipée', 'Réseau Fibre Wifi'
   ];
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>(property?.amenities || ['Titre Foncier', 'Gardiennage 24/7']);
+  const [customAmenityInput, setCustomAmenityInput] = useState('');
+
+  const toggleAmenity = (amenity: string) => {
+    setSelectedAmenities(prev => 
+      prev.includes(amenity) 
+        ? prev.filter(a => a !== amenity) 
+        : [...prev, amenity]
+    );
+  };
+
+  const handleAddCustomAmenity = () => {
+    const trimmed = customAmenityInput.trim();
+    if (!trimmed) return;
+    if (!selectedAmenities.includes(trimmed)) {
+      setSelectedAmenities(prev => [...prev, trimmed]);
+    }
+    setCustomAmenityInput('');
+  };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -514,24 +532,85 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
           </div>
 
           {/* Amenities checklist */}
-          <div>
-            <label className="block text-xs font-semibold mb-2">Équipements & Options</label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-              {availableAmenities.map((amenity) => (
-                <label key={amenity} className="flex items-center space-x-2 bg-slate-50 p-2 rounded-lg border border-slate-200 cursor-pointer">
-                  <input 
-                    type="checkbox"
-                    checked={selectedAmenities.includes(amenity)}
-                    onChange={(e) => {
-                      if (e.target.checked) setSelectedAmenities([...selectedAmenities, amenity]);
-                      else setSelectedAmenities(selectedAmenities.filter(a => a !== amenity));
-                    }}
-                    className="rounded text-amber-500 focus:ring-amber-400"
-                  />
-                  <span>{amenity}</span>
-                </label>
-              ))}
+          <div className="border border-slate-200 p-4 rounded-2xl bg-slate-50 space-y-3">
+            <div className="flex justify-between items-center">
+              <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider">
+                Équipements & Options ({selectedAmenities.length} sélectionné(s))
+              </label>
+              <button
+                type="button"
+                onClick={() => setSelectedAmenities(availableAmenities)}
+                className="text-[11px] text-amber-600 font-bold hover:underline"
+              >
+                Tout sélectionner
+              </button>
             </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+              {availableAmenities.map((amenity) => {
+                const isSelected = selectedAmenities.includes(amenity);
+                return (
+                  <button
+                    key={amenity}
+                    type="button"
+                    onClick={() => toggleAmenity(amenity)}
+                    className={`flex items-center justify-between p-2.5 rounded-xl border text-xs text-left font-medium transition cursor-pointer select-none ${
+                      isSelected 
+                        ? 'bg-amber-500/10 border-amber-500 text-slate-950 font-bold shadow-sm' 
+                        : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-100'
+                    }`}
+                  >
+                    <span className="truncate pr-1">{amenity}</span>
+                    <div className={`w-4 h-4 rounded flex items-center justify-center border shrink-0 transition ${
+                      isSelected ? 'bg-amber-500 border-amber-500 text-slate-950' : 'border-slate-300 bg-white'
+                    }`}>
+                      {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Custom Amenities Input */}
+            <div className="flex space-x-2 pt-2 border-t border-slate-200/60">
+              <input
+                type="text"
+                placeholder="Ajouter un équipement personnalisé (ex: Domotique, Balcon, Penthouses)..."
+                value={customAmenityInput}
+                onChange={(e) => setCustomAmenityInput(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddCustomAmenity(); } }}
+                className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+              />
+              <button
+                type="button"
+                onClick={handleAddCustomAmenity}
+                className="bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition"
+              >
+                + Ajouter
+              </button>
+            </div>
+
+            {/* Render custom amenities pills if any exist outside standard list */}
+            {selectedAmenities.filter(a => !availableAmenities.includes(a)).length > 0 && (
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block w-full">Équipements personnalisés :</span>
+                {selectedAmenities.filter(a => !availableAmenities.includes(a)).map((customA) => (
+                  <span 
+                    key={customA} 
+                    className="inline-flex items-center space-x-1 bg-amber-500/20 text-amber-900 border border-amber-500/30 text-[11px] font-bold px-2.5 py-1 rounded-lg"
+                  >
+                    <span>{customA}</span>
+                    <button 
+                      type="button" 
+                      onClick={() => toggleAmenity(customA)}
+                      className="text-amber-800 hover:text-red-600 ml-1"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* MULTI PHOTO UPLOAD MANAGER SECTION */}
