@@ -211,7 +211,7 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
           
           {activeTab === 'editor' && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <div className="sm:col-span-2">
                   <label className="block font-semibold mb-1">Titre de la publication *</label>
                   <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full bg-slate-50 border p-2.5 rounded-xl font-bold text-sm" />
@@ -220,6 +220,14 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
                   <label className="block font-semibold mb-1">Catégorie *</label>
                   <select value={category} onChange={(e) => setCategory(e.target.value as PublicationCategory)} className="w-full bg-slate-50 border p-2.5 rounded-xl font-semibold">
                     {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block font-semibold mb-1">Statut *</label>
+                  <select value={status} onChange={(e) => setStatus(e.target.value as PublicationStatus)} className="w-full bg-slate-50 border p-2.5 rounded-xl font-semibold text-emerald-700 font-bold">
+                    <option value="Publié">✅ Publié (Public)</option>
+                    <option value="Brouillon">📝 Brouillon (Privé)</option>
+                    <option value="Archivé">📦 Archivé</option>
                   </select>
                 </div>
               </div>

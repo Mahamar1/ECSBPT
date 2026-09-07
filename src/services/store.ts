@@ -596,13 +596,15 @@ class AppStore {
     return this.projects.find(p => p.slug === slug);
   }
   saveProject(project: Partial<BTPProject>): BTPProject {
+    let targetId = project.id;
     if (project.id) {
       this.projects = this.projects.map(p => p.id === project.id ? { ...p, ...project } as BTPProject : p);
     } else {
+      targetId = `proj-${Date.now()}`;
       const newProject: BTPProject = {
-        id: `proj-${Date.now()}`,
+        id: targetId,
         title: project.title || "Projet BTP",
-        slug: project.slug || (project.title ? project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `proj-${Date.now()}`),
+        slug: project.slug || (project.title ? project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `proj-${Date.now()}`),
         description: project.description || '',
         location: project.location || 'Dakar',
         project_type: project.project_type || 'Immeuble',
@@ -621,7 +623,7 @@ class AppStore {
       this.projects = [newProject, ...this.projects];
     }
     this.save('sbi_projects', this.projects);
-    return this.projects.find(p => p.id === project.id)!;
+    return this.projects.find(p => p.id === targetId)!;
   }
   deleteProject(id: string) {
     this.projects = this.projects.filter(p => p.id !== id);
@@ -636,13 +638,15 @@ class AppStore {
     return this.realizations.find(r => r.slug === slug);
   }
   saveRealization(realization: Partial<Realization>): Realization {
+    let targetId = realization.id;
     if (realization.id) {
       this.realizations = this.realizations.map(r => r.id === realization.id ? { ...r, ...realization } as Realization : r);
     } else {
+      targetId = `real-${Date.now()}`;
       const newRealization: Realization = {
-        id: `real-${Date.now()}`,
+        id: targetId,
         title: realization.title || "Réalisation",
-        slug: realization.slug || (realization.title ? realization.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `real-${Date.now()}`),
+        slug: realization.slug || (realization.title ? realization.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `real-${Date.now()}`),
         description: realization.description || '',
         location: realization.location || 'Dakar',
         realization_type: realization.realization_type || 'Construction',
@@ -655,7 +659,7 @@ class AppStore {
       this.realizations = [newRealization, ...this.realizations];
     }
     this.save('sbi_realizations', this.realizations);
-    return this.realizations.find(r => r.id === realization.id)!;
+    return this.realizations.find(r => r.id === targetId)!;
   }
   deleteRealization(id: string) {
     this.realizations = this.realizations.filter(r => r.id !== id);
@@ -670,21 +674,22 @@ class AppStore {
     return this.publications.find(p => p.slug === slug);
   }
   savePublication(pub: Partial<Publication>): Publication {
+    let targetId = pub.id;
     if (pub.id) {
       this.publications = this.publications.map(p => p.id === pub.id ? { ...p, ...pub } as Publication : p);
     } else {
+      targetId = `pub-${Date.now()}`;
       const newPub: Publication = {
-        id: `pub-${Date.now()}`,
+        id: targetId,
         title: pub.title || "Nouvelle Publication",
-        slug: pub.slug || (pub.title ? pub.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `article-${Date.now()}`),
+        slug: pub.slug || (pub.title ? pub.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `article-${Date.now()}`),
         category: pub.category || 'Actualités',
         excerpt: pub.excerpt || '',
         content: pub.content || '',
         cover_image: pub.cover_image || 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80',
         status: pub.status || 'Publié',
-        published_at: new Date().toISOString(),
+        published_at: pub.published_at || new Date().toISOString(),
         author: pub.author || 'Équipe ECS BTP',
-
         seo_title: pub.seo_title || pub.title,
         seo_description: pub.seo_description || pub.excerpt,
         created_at: new Date().toISOString()
@@ -692,7 +697,7 @@ class AppStore {
       this.publications = [newPub, ...this.publications];
     }
     this.save('sbi_publications', this.publications);
-    return this.publications.find(p => p.id === pub.id)!;
+    return this.publications.find(p => p.id === targetId)!;
   }
   deletePublication(id: string) {
     this.publications = this.publications.filter(p => p.id !== id);

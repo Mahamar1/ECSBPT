@@ -35,7 +35,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       setProperties(store.getProperties().filter(p => p.published).slice(0, 3));
       setProjects(store.getProjects().filter(p => p.published).slice(0, 3));
       setRealizations(store.getRealizations().filter(r => r.published).slice(0, 3));
-      setPublications(store.getPublications().filter(p => p.status === 'Publié').slice(0, 3));
+      setPublications(store.getPublications().filter(p => (p.status === 'Publié' || !p.status || (p as any).published === true) && p.status !== 'Brouillon').slice(0, 3));
       setSettings(store.getSettings());
     };
     loadData();

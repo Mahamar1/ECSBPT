@@ -14,7 +14,7 @@ export const PublicationsPage: React.FC<PublicationsPageProps> = ({ onNavigate }
 
   useEffect(() => {
     const load = () => {
-      setPublications(store.getPublications().filter(p => p.status === 'Publié'));
+      setPublications(store.getPublications().filter(p => (p.status === 'Publié' || !p.status || (p as any).published === true) && p.status !== 'Brouillon'));
     };
     load();
     return store.subscribe(load);
@@ -129,7 +129,9 @@ export const PublicationDetailPage: React.FC<{ slug: string; onNavigate: (path: 
   const [pub, setPub] = useState<Publication | undefined>(undefined);
 
   useEffect(() => {
-    setPub(store.getPublicationBySlug(slug));
+    const load = () => setPub(store.getPublicationBySlug(slug));
+    load();
+    return store.subscribe(load);
   }, [slug]);
 
   if (!pub) {
