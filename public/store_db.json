@@ -1,5 +1,255 @@
 {
-  "updatedAt": 1788788671981,
-  "version": "1.0",
-  "status": "ACTIVE_CLOUD_SYNC"
+  "settings": {
+    "company_name": "ECS BTP",
+    "logo": "/logo.png",
+    "tagline": "Construire aujourd'hui, investir pour demain.",
+    "phone": "+221 77 605 86 86 / +221 77 620 95 95 / +221 78 275 94 90",
+    "whatsapp": "+221 77 605 86 86",
+    "email": "contact@ecs-btp.sn",
+    "address": "Hann Maristes 2, Villa N°220, Dakar, Sénégal",
+    "website": "https://ecs-btp.sn",
+    "facebook": "https://facebook.com/ecsbtp",
+    "instagram": "https://instagram.com/ecsbtp",
+    "linkedin": "https://linkedin.com/company/ecsbtp",
+    "youtube": "https://youtube.com/c/ecsbtp",
+    "description": "ECS BTP est une entreprise référence au Sénégal spécialisée dans les grands travaux de construction BTP, la promotion immobilière haut de gamme et la vente/location de biens d'exception à Dakar et ses environs.",
+    "hours": "Lun - Ven: 08h00 - 18h30 | Sam: 09h00 - 13h00",
+    "gps": "14.7297, -17.4338"
+  },
+  "properties": [
+    {
+      "id": "prop-1",
+      "title": "Appartement F4 Standing Vue Mer aux Almadies",
+      "slug": "appartement-f4-standing-vue-mer-almadies",
+      "reference": "SBI-ALM-001",
+      "type": "Appartement",
+      "transaction_type": "Vente",
+      "price": 185000000,
+      "currency": "FCFA",
+      "location": "Almadies",
+      "neighborhood": "Zone Ambassades",
+      "city": "Dakar",
+      "surface": 210,
+      "bedrooms": 3,
+      "bathrooms": 3,
+      "floors": 4,
+      "description": "Somptueux appartement F4 situé au 4ème étage d'une résidence sécurisée de très haut standing aux Almadies. Offrant une vue panoramique imprenable sur l'océan Atlantique, cet appartement comprend une suite parentale avec dressing et salle de bain jacuzzi, deux chambres secondaires avec salles d'eau privatives, un grand salon lumineux s'ouvrant sur une vaste terrasse, une cuisine équipée avec buanderie et une chambre de service.",
+      "amenities": [
+        "Vue sur Mer",
+        "Piscine commune",
+        "Ascenseur",
+        "Groupe électrogène",
+        "Surveillance 24/7",
+        "Parking sous-sol",
+        "Climatisation centralisée",
+        "Cuisine équipée"
+      ],
+      "status": "Disponible",
+      "published": true,
+      "featured": true,
+      "agent_contact": "+221 77 605 86 86",
+      "created_at": "2026-08-15T10:00:00Z",
+      "images": [
+        {
+          "id": "img-1-1",
+          "property_id": "prop-1",
+          "image_url": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80",
+          "is_cover": true,
+          "display_order": 1
+        },
+        {
+          "id": "img-1-2",
+          "property_id": "prop-1",
+          "image_url": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80",
+          "is_cover": false,
+          "display_order": 2
+        }
+      ]
+    },
+    {
+      "id": "prop-2",
+      "title": "Villa Moderne R+1 avec Piscine & Jardin à Mermoz",
+      "slug": "villa-moderne-r1-avec-piscine-jardin-mermoz",
+      "reference": "SBI-MER-002",
+      "type": "Villa",
+      "transaction_type": "Vente",
+      "price": 320000000,
+      "currency": "FCFA",
+      "location": "Mermoz Pyrotechnie",
+      "neighborhood": "Mermoz",
+      "city": "Dakar",
+      "surface": 450,
+      "bedrooms": 5,
+      "bathrooms": 5,
+      "floors": 2,
+      "description": "Splendide villa contemporaine R+1 construite sur un terrain de 450m² dans le quartier prisé de Mermoz. La villa offre des prestations d'exception : grand séjour traversant illuminé par de baies vitrées coulissantes donnant sur la piscine chauffée et le jardin paysager, 5 suites spacieuses avec salles de bains, garage fermé pour 3 véhicules et quartier pour le personnel.",
+      "amenities": [
+        "Piscine privative",
+        "Jardin paysager",
+        "Garage 3 voitures",
+        "Groupe électrogène 50 kVA"
+      ],
+      "status": "Disponible",
+      "published": true,
+      "featured": true,
+      "agent_contact": "+221 77 605 86 86",
+      "created_at": "2026-08-20T14:30:00Z",
+      "images": [
+        {
+          "id": "img-2-1",
+          "property_id": "prop-2",
+          "image_url": "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80",
+          "is_cover": true,
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "id": "prop-3",
+      "title": "Appartement F3 Meublé à Louer à Fann Résidence",
+      "slug": "appartement-f3-meuble-a-louer-fann-residence",
+      "reference": "SBI-FAN-003",
+      "type": "Appartement",
+      "transaction_type": "Location",
+      "price": 1500000,
+      "currency": "FCFA/mois",
+      "location": "Fann Résidence",
+      "neighborhood": "Fann",
+      "city": "Dakar",
+      "surface": 140,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "floors": 2,
+      "description": "Superbe appartement F3 entièrement meublé et équipé avec goût à Fann Résidence. Idéal pour expatriés ou cadres d'entreprise.",
+      "amenities": [
+        "Meublé",
+        "Wifi Fibre",
+        "Gardiennage 24h"
+      ],
+      "status": "Disponible",
+      "published": true,
+      "featured": false,
+      "agent_contact": "+221 77 605 86 86",
+      "created_at": "2026-08-28T09:15:00Z",
+      "images": [
+        {
+          "id": "img-3-1",
+          "property_id": "prop-3",
+          "image_url": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1200&q=80",
+          "is_cover": true,
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "id": "prop-4",
+      "title": "Terrain Viabilisé Titre Foncier de 500 m² à Rufisque / Lac Rose",
+      "slug": "terrain-viabilise-titre-foncier-500m2-rufisque",
+      "reference": "SBI-RUF-004",
+      "type": "Terrain",
+      "transaction_type": "Vente",
+      "price": 35000000,
+      "currency": "FCFA",
+      "location": "Rufisque",
+      "neighborhood": "Proche Lac Rose / Sangalkam",
+      "city": "Dakar",
+      "surface": 500,
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "floors": 0,
+      "description": "Parcelle d'angle de 500 m² bénéficiant d'un Titre Foncier individuel net et clair de toute charge.",
+      "amenities": [
+        "Titre Foncier",
+        "Viabilisé (Eau/Électricité)"
+      ],
+      "status": "Disponible",
+      "published": true,
+      "featured": false,
+      "agent_contact": "+221 77 605 86 86",
+      "created_at": "2026-09-01T11:00:00Z",
+      "images": [
+        {
+          "id": "img-4-1",
+          "property_id": "prop-4",
+          "image_url": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80",
+          "is_cover": true,
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "id": "prop-5",
+      "title": "Immeuble R+5 Commercial & Résidentiel au Plateau Dakar",
+      "slug": "immeuble-r5-commercial-residentiel-plateau-dakar",
+      "reference": "SBI-PLA-005",
+      "type": "Immeuble",
+      "transaction_type": "Vente",
+      "price": 1200000000,
+      "currency": "FCFA",
+      "location": "Dakar Plateau",
+      "neighborhood": "Avenue Ponty",
+      "city": "Dakar",
+      "surface": 1200,
+      "bedrooms": 12,
+      "bathrooms": 14,
+      "floors": 6,
+      "description": "Opportunité exceptionnelle d'investissement immobilier au cœur du quartier des affaires de Dakar Plateau.",
+      "amenities": [
+        "Emplacement premium",
+        "Rentabilité > 9%",
+        "Ascenseur double"
+      ],
+      "status": "Disponible",
+      "published": true,
+      "featured": true,
+      "agent_contact": "+221 77 605 86 86",
+      "created_at": "2026-09-02T16:20:00Z",
+      "images": [
+        {
+          "id": "img-5-1",
+          "property_id": "prop-5",
+          "image_url": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80",
+          "is_cover": true,
+          "display_order": 1
+        }
+      ]
+    }
+  ],
+  "projects": [],
+  "realizations": [],
+  "publications": [
+    {
+      "id": "pub-1",
+      "title": "Pourquoi Investir dans l'Immobilier Neuf à Dakar en 2026 ?",
+      "slug": "pourquoi-investir-dans-limmobilier-neuf-a-dakar-en-2026",
+      "category": "Conseils",
+      "excerpt": "Découvrez les zones à forte plus-value à Dakar (Almadies, Ngor, Diamniadio) et les avantages fiscaux et locatifs de la promotion neuve au Sénégal.",
+      "content": "<h2>L'essor du marché immobilier sénégalais</h2><p>Avec une croissance économique soutenue...</p>",
+      "cover_image": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+      "status": "Publié",
+      "published_at": "2026-08-10T09:00:00Z",
+      "author": "Ing. Mouhamed Niang",
+      "seo_title": "Investissement Immobilier Dakar 2026 | Conseils & Rendement - ECS BTP",
+      "seo_description": "Guide complet sur l'achat et l'investissement immobilier neuf à Dakar.",
+      "created_at": "2026-08-10T09:00:00Z"
+    },
+    {
+      "id": "pub-2",
+      "title": "Lancement du Chantier de la Tour 'ECS Horizon' aux Almadies",
+      "slug": "lancement-du-chantier-de-la-tour-ecs-horizon-aux-almadies",
+      "category": "Actualités",
+      "excerpt": "ECS BTP annonce le démarrage officiel des fondations profondes du projet emblématique R+11 en bordure de mer.",
+      "content": "<h2>Un nouveau repère architectural à Dakar</h2><p>Le groupe ECS BTP a officiellement posé la première pierre...</p>",
+      "cover_image": "https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=1200&q=80",
+      "status": "Publié",
+      "published_at": "2026-08-25T11:30:00Z",
+      "author": "Direction Communication",
+      "seo_title": "Chantier Tour ECS Horizon Almadies Dakar | ECS BTP",
+      "seo_description": "Démarrage des travaux du projet d'immeuble R+11 ECS Horizon aux Almadies Dakar.",
+      "created_at": "2026-08-25T11:30:00Z"
+    }
+  ],
+  "clients": [],
+  "inquiries": [],
+  "updatedAt": 1788788691117
 }
