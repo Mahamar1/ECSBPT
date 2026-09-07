@@ -14,7 +14,7 @@ export const INITIAL_SETTINGS: CompanySettings = {
   phone: "+221 77 605 86 86 / +221 77 620 95 95 / +221 78 275 94 90",
   whatsapp: "+221 77 605 86 86",
   email: "contact@ecs-btp.sn",
-  address: "Route des Almadies, Immeuble ECS Tower, Dakar, Sénégal",
+  address: "Hann Maristes 2, Villa N°220, Dakar, Sénégal",
   website: "https://ecs-btp.sn",
   facebook: "https://facebook.com/ecsbtp",
   instagram: "https://instagram.com/ecsbtp",
@@ -22,7 +22,7 @@ export const INITIAL_SETTINGS: CompanySettings = {
   youtube: "https://youtube.com/c/ecsbtp",
   description: "ECS BTP est une entreprise référence au Sénégal spécialisée dans les grands travaux de construction BTP, la promotion immobilière haut de gamme et la vente/location de biens d'exception à Dakar et ses environs.",
   hours: "Lun - Ven: 08h00 - 18h30 | Sam: 09h00 - 13h00",
-  gps: "14.7452, -17.5186"
+  gps: "14.7297, -17.4338"
 };
 
 
