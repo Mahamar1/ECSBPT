@@ -461,8 +461,39 @@ class AppStore {
   private services: Service[];
   private documents: DocumentItem[];
   private listeners: Set<() => void> = new Set();
+  private broadcastChannel = typeof window !== 'undefined' && 'BroadcastChannel' in window ? new BroadcastChannel('sbi_store_channel') : null;
 
   constructor() {
+    this.settings = INITIAL_SETTINGS;
+    this.properties = INITIAL_PROPERTIES;
+    this.projects = INITIAL_PROJECTS;
+    this.realizations = INITIAL_REALIZATIONS;
+    this.publications = INITIAL_PUBLICATIONS;
+    this.clients = INITIAL_CLIENTS;
+    this.inquiries = INITIAL_INQUIRIES;
+    this.services = INITIAL_SERVICES;
+    this.documents = INITIAL_DOCUMENTS;
+
+    this.reloadFromStorage();
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('storage', (e) => {
+        if (e.key && e.key.startsWith('sbi_')) {
+          this.reloadFromStorage();
+          this.notify();
+        }
+      });
+
+      if (this.broadcastChannel) {
+        this.broadcastChannel.onmessage = () => {
+          this.reloadFromStorage();
+          this.notify();
+        };
+      }
+    }
+  }
+
+  private reloadFromStorage() {
     this.settings = this.load('sbi_settings', INITIAL_SETTINGS);
     this.properties = this.load('sbi_properties', INITIAL_PROPERTIES);
     this.projects = this.load('sbi_projects', INITIAL_PROJECTS);
@@ -486,6 +517,7 @@ class AppStore {
   private save(key: string, data: any) {
     try {
       localStorage.setItem(key, JSON.stringify(data));
+      this.broadcastChannel?.postMessage({ type: 'STORE_UPDATED', key, timestamp: Date.now() });
       this.notify();
     } catch (e) {
       console.error('LocalStorage save error:', e);
