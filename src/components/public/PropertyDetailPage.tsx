@@ -27,9 +27,13 @@ export const PropertyDetailPage: React.FC<PropertyDetailPageProps> = ({ slug, on
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const prop = store.getPropertyBySlug(slug);
-    setProperty(prop);
-    setSettings(store.getSettings());
+    const load = () => {
+      const prop = store.getPropertyBySlug(slug);
+      setProperty(prop);
+      setSettings(store.getSettings());
+    };
+    load();
+    return store.subscribe(load);
   }, [slug]);
 
   if (!property) {

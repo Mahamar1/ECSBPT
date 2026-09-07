@@ -17,7 +17,7 @@ export const PropertiesPage: React.FC<PropertiesPageProps> = ({ onNavigate }) =>
 
   useEffect(() => {
     const load = () => {
-      setProperties(store.getProperties().filter(p => p.published));
+      setProperties(store.getProperties().filter(p => (p.published !== false && p.status !== 'Brouillon' && p.status !== 'Archivé')));
     };
     load();
     return store.subscribe(load);

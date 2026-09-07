@@ -547,16 +547,25 @@ class AppStore {
     return this.properties;
   }
   getPropertyBySlug(slug: string): Property | undefined {
-    return this.properties.find(p => p.slug === slug);
+    const decoded = decodeURIComponent(slug).toLowerCase();
+    const cleanSlug = slug.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    return this.properties.find(p => 
+      p.slug === slug || 
+      p.slug.toLowerCase() === decoded || 
+      p.slug.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') === cleanSlug ||
+      p.id === slug
+    );
   }
   saveProperty(property: Partial<Property>): Property {
+    let targetId = property.id;
     if (property.id) {
       this.properties = this.properties.map(p => p.id === property.id ? { ...p, ...property, updated_at: new Date().toISOString() } as Property : p);
     } else {
+      targetId = `prop-${Date.now()}`;
       const newProp: Property = {
-        id: `prop-${Date.now()}`,
+        id: targetId,
         title: property.title || "Bien Immobilier",
-        slug: property.slug || (property.title ? property.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') : `bien-${Date.now()}`),
+        slug: property.slug || (property.title ? property.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') : `bien-${Date.now()}`),
         reference: property.reference || `SBI-${Math.floor(100 + Math.random() * 900)}`,
         type: property.type || 'Appartement',
         transaction_type: property.transaction_type || 'Vente',
@@ -581,7 +590,7 @@ class AppStore {
       this.properties = [newProp, ...this.properties];
     }
     this.save('sbi_properties', this.properties);
-    return this.properties.find(p => p.slug === property.slug || p.id === property.id)!;
+    return this.properties.find(p => p.id === targetId)!;
   }
   deleteProperty(id: string) {
     this.properties = this.properties.filter(p => p.id !== id);
