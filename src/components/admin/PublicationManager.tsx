@@ -171,15 +171,15 @@ export const ArticleEditorModal: React.FC<{ publication: Publication | null; onC
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl text-slate-900">
+    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto min-h-screen">
+      <div className="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6 md:p-8 space-y-5 shadow-2xl text-slate-900 mx-auto my-auto">
         
-        <div className="flex justify-between items-center border-b pb-4">
-          <h3 className="text-lg font-bold flex items-center space-x-2">
-            <FileText className="w-5 h-5 text-purple-600" />
+        <div className="flex justify-between items-center border-b pb-3 sm:pb-4">
+          <h3 className="text-base sm:text-lg font-bold flex items-center space-x-2">
+            <FileText className="w-5 h-5 text-purple-600 shrink-0" />
             <span>{publication ? 'Éditer la publication CMS' : 'Nouvelle Publication CMS'}</span>
           </h3>
-          <button onClick={onClose} className="text-slate-400">✕</button>
+          <button onClick={onClose} className="text-slate-400 p-1">✕</button>
         </div>
 
         {/* Tab switch */}

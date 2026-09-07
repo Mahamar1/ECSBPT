@@ -379,12 +379,12 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 shadow-2xl border border-slate-200 animate-fade-in text-slate-900">
+    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto min-h-screen">
+      <div className="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6 md:p-8 space-y-5 shadow-2xl border border-slate-200 animate-fade-in text-slate-900 mx-auto my-auto">
         
-        <div className="flex justify-between items-center border-b border-slate-100 pb-4">
-          <h3 className="text-lg font-bold text-slate-900 flex items-center space-x-2">
-            <Building2 className="w-5 h-5 text-amber-500" />
+        <div className="flex justify-between items-center border-b border-slate-100 pb-3 sm:pb-4">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center space-x-2">
+            <Building2 className="w-5 h-5 text-amber-500 shrink-0" />
             <span>{property ? 'Modifier le Bien' : 'Nouveau Bien Immobilier'}</span>
           </h3>
           <button onClick={onClose} className="text-slate-400 hover:text-slate-600 p-1">
@@ -392,10 +392,10 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           
           {/* Main Info */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs">
             <div className="sm:col-span-2">
               <label className="block font-semibold mb-1">Titre du bien *</label>
               <input 
@@ -404,7 +404,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Ex: Appartement F4 Vue Mer aux Almadies"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -414,18 +414,18 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 required
                 value={reference}
                 onChange={(e) => setReference(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-xs">
             <div>
               <label className="block font-semibold mb-1">Type de Bien *</label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as PropertyType)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               >
                 {['Appartement', 'Villa', 'Maison', 'Terrain', 'Immeuble', 'Bureau', 'Magasin', 'Local commercial', 'Studio', 'Entrepôt'].map(t => (
                   <option key={t} value={t}>{t}</option>
@@ -438,7 +438,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
               <select
                 value={transactionType}
                 onChange={(e) => setTransactionType(e.target.value as TransactionType)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               >
                 <option value="Vente">Vente</option>
                 <option value="Location">Location</option>
@@ -452,7 +452,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 required
                 value={price}
                 onChange={(e) => setPrice(Number(e.target.value))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono font-bold focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs font-mono font-bold focus:outline-none focus:border-amber-500"
               />
             </div>
 
@@ -462,13 +462,13 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 type="text" 
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
 
           {/* Location */}
-          <div className="grid grid-cols-3 gap-4 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-xs">
             <div>
               <label className="block font-semibold mb-1">Quartier *</label>
               <input 
@@ -477,7 +477,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 value={neighborhood}
                 onChange={(e) => setNeighborhood(e.target.value)}
                 placeholder="Ex: Almadies, Mermoz"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -487,7 +487,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 placeholder="Ex: Zone Ambassades"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -496,20 +496,20 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 type="text" 
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>
 
           {/* Specs */}
-          <div className="grid grid-cols-4 gap-4 text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-xs">
             <div>
               <label className="block font-semibold mb-1">Surface (m²)</label>
               <input 
                 type="number" 
                 value={surface}
                 onChange={(e) => setSurface(Number(e.target.value))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -518,7 +518,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 type="number" 
                 value={bedrooms}
                 onChange={(e) => setBedrooms(Number(e.target.value))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -527,7 +527,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 type="number" 
                 value={bathrooms}
                 onChange={(e) => setBathrooms(Number(e.target.value))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
             <div>
@@ -536,7 +536,7 @@ export const PropertyFormModal: React.FC<{ property: Property | null; onClose: (
                 type="number" 
                 value={floors}
                 onChange={(e) => setFloors(Number(e.target.value))}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-amber-500"
               />
             </div>
           </div>

@@ -95,31 +95,31 @@ export const RealizationFormModal: React.FC<{ realization: Realization | null; o
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-xl w-full p-6 space-y-4 shadow-2xl text-slate-900">
+    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto min-h-screen">
+      <div className="bg-white rounded-2xl sm:rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6 space-y-4 shadow-2xl text-slate-900 mx-auto my-auto">
         <div className="flex justify-between items-center border-b pb-3">
-          <h3 className="font-bold text-base">{realization ? 'Modifier Réalisation' : 'Nouvelle Réalisation BTP'}</h3>
-          <button onClick={onClose} className="text-slate-400">✕</button>
+          <h3 className="font-bold text-base sm:text-lg">{realization ? 'Modifier Réalisation' : 'Nouvelle Réalisation BTP'}</h3>
+          <button onClick={onClose} className="text-slate-400 p-1">✕</button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-3 text-xs">
           <div>
             <label className="block font-semibold mb-1">Titre de la réalisation *</label>
-            <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full bg-slate-50 border p-2 rounded-xl" />
+            <input type="text" required value={title} onChange={(e) => setTitle(e.target.value)} className="w-full bg-slate-50 border p-2.5 rounded-xl" />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block font-semibold mb-1">Type d'ouvrage</label>
-              <input type="text" value={type} onChange={(e) => setType(e.target.value)} className="w-full bg-slate-50 border p-2 rounded-xl" />
+              <input type="text" value={type} onChange={(e) => setType(e.target.value)} className="w-full bg-slate-50 border p-2.5 rounded-xl" />
             </div>
             <div>
               <label className="block font-semibold mb-1">Localisation</label>
-              <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full bg-slate-50 border p-2 rounded-xl" />
+              <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full bg-slate-50 border p-2.5 rounded-xl" />
             </div>
             <div>
               <label className="block font-semibold mb-1">Année</label>
-              <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full bg-slate-50 border p-2 rounded-xl" />
+              <input type="number" value={year} onChange={(e) => setYear(Number(e.target.value))} className="w-full bg-slate-50 border p-2.5 rounded-xl" />
             </div>
           </div>
 

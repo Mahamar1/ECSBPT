@@ -183,15 +183,15 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 space-y-6 shadow-2xl text-slate-900">
+    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto min-h-screen">
+      <div className="bg-white rounded-2xl sm:rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden p-4 sm:p-6 md:p-8 space-y-5 shadow-2xl text-slate-900 mx-auto my-auto">
         <div className="flex justify-between items-center border-b pb-3">
-          <h3 className="font-bold text-lg">{project ? 'Modifier le Projet BTP' : 'Nouveau Projet BTP'}</h3>
-          <button onClick={onClose} className="text-slate-400">✕</button>
+          <h3 className="font-bold text-base sm:text-lg">{project ? 'Modifier le Projet BTP' : 'Nouveau Projet BTP'}</h3>
+          <button onClick={onClose} className="text-slate-400 p-1">✕</button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold mb-1">Nom du projet BTP *</label>
               <input 
@@ -199,7 +199,7 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
                 required 
                 value={title} 
                 onChange={(e) => setTitle(e.target.value)} 
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5"
               />
             </div>
             <div>
@@ -207,7 +207,7 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
               <select 
                 value={projectType} 
                 onChange={(e) => setProjectType(e.target.value as ProjectType)}
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5"
               >
                 {['Villa', 'Immeuble', 'R+1', 'R+2', 'R+5', 'R+10', 'R+11', 'Résidence', 'Bureau', 'Commerce', 'Lotissement', 'Rénovation'].map(t => (
                   <option key={t} value={t}>{t}</option>
@@ -216,18 +216,18 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold mb-1">Localisation</label>
-              <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2" />
+              <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5" />
             </div>
             <div>
               <label className="block font-semibold mb-1">Maître d'ouvrage / Client</label>
-              <input type="text" value={client} onChange={(e) => setClient(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2" />
+              <input type="text" value={client} onChange={(e) => setClient(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5" />
             </div>
             <div>
               <label className="block font-semibold mb-1">Statut du chantier</label>
-              <select value={status} onChange={(e) => setStatus(e.target.value as ProjectStatus)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+              <select value={status} onChange={(e) => setStatus(e.target.value as ProjectStatus)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5">
                 <option value="À venir">À venir</option>
                 <option value="En préparation">En préparation</option>
                 <option value="En cours">En cours</option>
@@ -237,18 +237,18 @@ export const ProjectFormModal: React.FC<{ project: BTPProject | null; onClose: (
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
             <div>
               <label className="block font-semibold mb-1">Surface (m²)</label>
-              <input type="number" value={surface} onChange={(e) => setSurface(Number(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2" />
+              <input type="number" value={surface} onChange={(e) => setSurface(Number(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5" />
             </div>
             <div>
               <label className="block font-semibold mb-1">Niveaux / Etages</label>
-              <input type="number" value={floors} onChange={(e) => setFloors(Number(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2" />
+              <input type="number" value={floors} onChange={(e) => setFloors(Number(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5" />
             </div>
             <div>
               <label className="block font-semibold mb-1">Budget (FCFA)</label>
-              <input type="number" value={budget} onChange={(e) => setBudget(Number(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2" />
+              <input type="number" value={budget} onChange={(e) => setBudget(Number(e.target.value))} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5" />
             </div>
           </div>
 
