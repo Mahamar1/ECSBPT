@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS public.settings (
     tagline TEXT DEFAULT 'Construire aujourd''hui, investir pour demain.',
     phone TEXT DEFAULT '+221 33 800 00 00',
     whatsapp TEXT DEFAULT '+221 77 000 00 00',
-    email TEXT DEFAULT 'contact@samabtpimmo.sn',
+    email TEXT DEFAULT 'ecs.btp1@gmail.com',
     address TEXT DEFAULT 'Route des Almadies, Dakar, Sénégal',
     website TEXT DEFAULT 'https://samabtpimmo.sn',
     facebook TEXT,

@@ -10,7 +10,7 @@ interface AdminAuthProps {
 }
 
 export const AdminAuth: React.FC<AdminAuthProps> = ({ onLoginSuccess, onNavigatePublic }) => {
-  const [email, setEmail] = useState('admin@ecs-btp.sn');
+  const [email, setEmail] = useState('ecs.btp1@gmail.com');
   const [password, setPassword] = useState('password123');
   const [selectedRole, setSelectedRole] = useState<UserRole>('SUPER_ADMIN');
   const [loading, setLoading] = useState(false);

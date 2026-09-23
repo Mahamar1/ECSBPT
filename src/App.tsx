@@ -29,7 +29,7 @@ export function App() {
     return (localStorage.getItem('sbi_admin_role') as UserRole) || 'SUPER_ADMIN';
   });
   const [userEmail, setUserEmail] = useState<string>(() => {
-    return localStorage.getItem('sbi_admin_email') || 'admin@ecs-btp.sn';
+    return localStorage.getItem('sbi_admin_email') || 'ecs.btp1@gmail.com';
 
   });
 
